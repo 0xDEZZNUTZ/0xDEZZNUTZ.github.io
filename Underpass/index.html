@@ -9,21 +9,21 @@
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
 <meta name="description" content="Hello, today we gonna try to hack the Underpass machine  on hacktheboxthe first thing is enumerate and see if there is an open port on the targetmachine for that we gonna use the tool nmap  i tried to">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NUTZH VS UNDERPASS">
+<meta property="og:title" content="UnderPass">
 <meta property="og:url" content="http://0xdezznutz.github.io/Underpass/">
 <meta property="og:site_name" content="NUTZH">
 <meta property="og:description" content="Hello, today we gonna try to hack the Underpass machine  on hacktheboxthe first thing is enumerate and see if there is an open port on the targetmachine for that we gonna use the tool nmap  i tried to">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-12-25T13:36:03.052Z">
-<meta property="article:modified_time" content="2024-12-25T21:34:21.351Z">
+<meta property="article:modified_time" content="2024-12-26T00:55:01.400Z">
 <meta property="article:author" content="NUTZH">
-<meta property="article:tag" content="HACKTHEBOX,CTF,SECURITY, NETWORK , PENTEST , WEBexploit , TRYHACKME , CHEATSHEET">
+<meta property="article:tag" content="HACKTHEBOX,CTF,SECURITY, NETWORK , PENTEST , WEBexploit , TRYHACKME , CHEATSHEET , LINUX , WINDOWS">
 <meta name="twitter:card" content="summary">
 
     <meta name="keywords" content="CTF , HACKTHEBOX , ACTIVE MACHINE">
 
 
-<title >NUTZH VS UNDERPASS</title>
+<title >UnderPass</title>
 
 <!-- Favicon -->
 
@@ -65,8 +65,8 @@
 
 
 <!-- Variable -->
-<script>window.ASYNC_CONFIG = {"hostname":"0xdezznutz.github.io","author":"NUTZH","root":"/","typed_text":["Cybersecurity Student"],"theme_version":"2.2.4","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"favico.png","icon16":"favico.png","icon32":"favico.png","apple_touch_icon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"favico.png","show_text":"(/≧▽≦/)","hide_text":"(●—●)"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"mac","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-12-25 22:34:21"};</script>
+<script>window.ASYNC_CONFIG = {"hostname":"0xdezznutz.github.io","author":"NUTZH","root":"/","typed_text":["Cybersecurity Student"],"theme_version":"2.2.4","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"favico.png","icon16":"favico.png","icon32":"favico.png","apple_touch_icon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"favico.png","show_text":"(/≧▽≦/)","hide_text":"(●—●)"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"mac","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.xml"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-12-26 01:55:01"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.4" id="trm-switch-style">
@@ -197,9 +197,9 @@
 
 			
     
-        <a id="trm-search-btn" class="trm-search-btn" data-no-swup target="_blank" href="https://www.google.com/search?q=site:null">
-            <i class="iconfont fas fa-search"></i>
-        </a>
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
      
 
 		</div>
@@ -236,7 +236,7 @@
                             UNDERPASS
                         </div>
                         <h1 class="trm-mb-30 trm-hsmb-font">
-                            NUTZH VS UNDERPASS
+                            UnderPass
                         </h1>
 
                         
@@ -433,6 +433,41 @@
         </h5>
     </div>
     
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/Idea/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="https://c4.wallpaperflare.com/wallpaper/448/4/916/there-s-no-place-like-127-1-hd-there-s-no-place-like-l27-1-text-wallpaper-preview.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" #.">
+                    Unclassified
+                </a>
+            </div>
+            <h5>
+                <a href="/Idea/" class="trm-anima-link">
+                    Idea
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/12/26</li>
+                <li>00:21</li>
+                
+                    <li>25</li>
+                
+                
+                    <li>1</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
     
 </div>
 
@@ -548,6 +583,11 @@
         <script src="/js/plugins/typing.js?v=2.2.4"></script>
     
 
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.4"></script>
     
 
     <!-- 数学公式 -->
