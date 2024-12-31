@@ -100,7 +100,21 @@
 </code></pre>
 <p>Summary :</p>
 <p>for me , its my first time scanning UDP ports , and enumerate SNMP  so it was<br>a good experience. we learn that we need to brute force some directories<br>more and more until we find something that lead us to the target .<br>Also for the Privesca , it was good to learn about “mosh” command<br>and what used for and a Misconfiguration can lead to a root privileges.</p>
-]]></content>
+<div style="margin-top: 20px;">
+  <button id="likeButton" onclick="incrementLikes()" style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 12px;">Like</button>
+    <span id="likeCount" style="font-size: 16px;">0</span> 👍  I HOPE U LIKE THIS WRITE-UP
+</div>
+
+<script>
+  let likeCount = 0;
+  function incrementLikes() {
+    likeCount++;
+    document.getElementById('likeCount').innerText = likeCount;
+    document.getElementById('likeButton').disabled = true;
+    document.getElementById('likeButton').innerText = 'Liked';
+    document.getElementById('likeButton').style.backgroundColor = '#888';
+  }
+</script>]]></content>
       <categories>
         <category>ACTIVE MACHINE</category>
         <category>HACK THE BOX</category>
@@ -176,6 +190,22 @@
 <p>Understand symlink exploitation to escalate privileges.</p>
 <pre><code> Congratulations! You&#39;ve rooted the Linkvortex machine. 🎉
 </code></pre>
+<div style="margin-top: 20px;">
+  <button id="likeButton" onclick="incrementLikes()" style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 12px;">Like</button>
+    <span id="likeCount" style="font-size: 16px;">0</span> 👍  I HOPE U LIKE THIS WRITE-UP
+</div>
+
+<script>
+  let likeCount = 0;
+  function incrementLikes() {
+    likeCount++;
+    document.getElementById('likeCount').innerText = likeCount;
+    document.getElementById('likeButton').disabled = true;
+    document.getElementById('likeButton').innerText = 'Liked';
+    document.getElementById('likeButton').style.backgroundColor = '#888';
+  }
+</script>
+
 ]]></content>
       <categories>
         <category>ACTIVE MACHINE</category>
