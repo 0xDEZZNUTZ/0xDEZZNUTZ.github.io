@@ -1057,6 +1057,9 @@ html.is-animating .trm-swup-animation {
 .trm-mode-switcher-place .trm-mode-switcher .tgl:before {
   box-sizing: border-box;
 }
+.trm-mode-switcher-place .trm-mode-switcher .tgl::-moz-selection, .trm-mode-switcher-place .trm-mode-switcher .tgl *::-moz-selection, .trm-mode-switcher-place .trm-mode-switcher .tgl *:after::-moz-selection, .trm-mode-switcher-place .trm-mode-switcher .tgl *:before::-moz-selection, .trm-mode-switcher-place .trm-mode-switcher .tgl + .trm-swich::-moz-selection, .trm-mode-switcher-place .trm-mode-switcher .tgl:after::-moz-selection, .trm-mode-switcher-place .trm-mode-switcher .tgl:before::-moz-selection {
+  background: 0;
+}
 .trm-mode-switcher-place .trm-mode-switcher .tgl::selection,
 .trm-mode-switcher-place .trm-mode-switcher .tgl *::selection,
 .trm-mode-switcher-place .trm-mode-switcher .tgl *:after::selection,
@@ -1073,7 +1076,9 @@ html.is-animating .trm-swup-animation {
   height: 23px;
   position: relative;
   cursor: pointer;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 .trm-mode-switcher-place .trm-mode-switcher .tgl + .trm-swich:after,
 .trm-mode-switcher-place .trm-mode-switcher .tgl + .trm-swich:before {
@@ -1508,8 +1513,10 @@ blockquote:after {
   width: 110px;
   height: 110px;
   border-radius: 50%;
-  object-fit: cover;
-  object-position: top;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
 }
 .trm-mc-header .trm-name {
   font-size: 18px;
@@ -1614,8 +1621,10 @@ blockquote:after {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
   transform: scale(1.05);
   transition: all 0.4s ease-in-out;
 }
@@ -1718,8 +1727,10 @@ blockquote:after {
   transform: scale(1.1);
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
   border-radius: 5px;
   transition: all 0.4s ease-in-out;
 }
@@ -1728,7 +1739,6 @@ blockquote:after {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -moz-box;
-  -moz-box-orient: vertical;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -1889,8 +1899,10 @@ blockquote:after {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
   transform: scale(1.05);
   margin: 0;
   transition: all 0.4s ease-in-out;
@@ -1966,7 +1978,8 @@ blockquote:after {
 .trm-order .trm-popup-content img {
   display: block;
   width: 40%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .trm-order .trm-popup-content .trm-popup-form-frame {
   text-align: center;
@@ -2030,8 +2043,10 @@ blockquote:after {
   height: 70px;
   width: 70px;
   border-radius: 50%;
-  object-fit: cover;
-  object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
   margin-bottom: 20px;
   border: solid 3px var(--theme-bg-color, #fcfcfe);
   box-shadow: var(--box-shadow);
@@ -2147,8 +2162,10 @@ blockquote:after {
   z-index: -1;
   top: 0;
   left: 0;
-  object-fit: cover;
-  object-position: top;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
   width: 100%;
   height: 100%;
 }
@@ -2273,16 +2290,20 @@ form textarea:focus,
   position: absolute;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
 }
 .trm-banner .trm-publication-cover {
   z-index: -1;
   position: absolute;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
 }
 .trm-banner .trm-banner-content {
   padding-top: 80px;
@@ -2943,7 +2964,9 @@ form textarea:focus,
   display: flex;
   flex-direction: column;
   pointer-events: none;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   transition: transform 0.3s, opacity 0.3s;
 }
 .trm-post-toc.active {
@@ -2985,6 +3008,7 @@ form textarea:focus,
 .trm-post-toc-content .trm-toc {
   text-align: left;
   margin: 0;
+  width: -moz-fit-content;
   width: fit-content;
   max-width: 14rem;
   padding: 0 0.5em;
@@ -2995,7 +3019,6 @@ form textarea:focus,
   font-weight: bold;
   overflow: hidden;
   white-space: nowrap;
-  -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
 .trm-post-toc-content .trm-toc .trm-toc-level-1 {
@@ -3011,6 +3034,7 @@ form textarea:focus,
   left: 0;
   right: 0;
   margin: auto;
+  width: -moz-max-content;
   width: max-content;
   padding: 4px 24px;
   border-radius: 30px;
@@ -3153,7 +3177,9 @@ details summary {
   padding: 16px 16px;
   margin: -16px;
   cursor: pointer;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 details p {
   margin: 8px 0;
@@ -3384,9 +3410,12 @@ figure.highlight .caption {
   left: 0;
   margin: 0 auto;
   line-height: 30px;
+  width: -moz-fit-content;
   width: fit-content;
   font-weight: bold;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   letter-spacing: 0;
   color: var(--highlight-tools-color);
 }
@@ -3418,7 +3447,9 @@ figure.highlight .code-tools {
   right: 10px;
   height: 30px;
   line-height: 30px;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   color: var(--highlight-tools-color);
 }
 figure.highlight .code-tools .code-lang {
@@ -3465,7 +3496,6 @@ figure.highlight::after {
   height: 12px;
   top: 9px;
   left: 12px;
-  -webkit-box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
   box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
 }
 figure.highlight .code-expand-btn {
@@ -3566,7 +3596,9 @@ figure.highlight .code-expand-btn svg {
   background-color: var(--highlight-gutter-bg-color);
   text-align: center;
   padding: 10px 4px !important;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   display: block;
 }
 .highlight .gutter pre {
@@ -3817,9 +3849,10 @@ pre .coffeescript .title {
   align-items: center;
   margin-left: 0.8em;
 }
-@supports (backdrop-filter: blur(1px)) {
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
   .trm-search-popup {
-    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
     background-color: #0000002e;
   }
 }
@@ -3874,6 +3907,7 @@ pre .coffeescript .title {
   background-color: var(--fixed-button-bg-color);
   color: var(--fixed-button-color);
   font-size: 0.8rem;
+  width: -moz-max-content;
   width: max-content;
   right: 50px;
   line-height: 2;
@@ -3930,4 +3964,43 @@ pre .coffeescript .title {
   --primary-30: rgba(164, 206, 96, 0.3);
   --primary-weak: #82df7a;
   --primary-weak-50: rgba(130, 223, 122, 0.5);
+}
+/* Custom styles for hexo-blog-encrypt */
+.hexo-blog-encrypt {
+  background-color: #1e1e1e;
+  /* Dark background */
+  color: #ffffff;
+  /* White text */
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 500px;
+  margin: 2rem auto;
+}
+.hexo-blog-encrypt h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.hexo-blog-encrypt input[type="password"] {
+  padding: 0.5rem;
+  border: 2px solid #4CAF50;
+  /* Green border */
+  border-radius: 5px;
+  width: 80%;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+.hexo-blog-encrypt button {
+  background-color: #4CAF50;
+  /* Green button */
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.hexo-blog-encrypt button:hover {
+  background-color: #45a049;
+  /* Darker green on hover */
 }
