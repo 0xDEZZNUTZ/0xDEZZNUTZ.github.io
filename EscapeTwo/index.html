@@ -10,22 +10,22 @@
 <meta name="description" content="Table of Contents Initial Enumeration with Nmap Step 2: Enumeration services Step 3: foothhold  Step 4: Privilege Escalation Key takeaways  In this write-up, we will walk through the steps to compromi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="EscapeTwo">
-<meta property="og:url" content="http://0xdezznutz.github.io/EscapeTwo/">
+<meta property="og:url" content="http://nutzh.top/EscapeTwo/">
 <meta property="og:site_name" content="NUTZH">
 <meta property="og:description" content="Table of Contents Initial Enumeration with Nmap Step 2: Enumeration services Step 3: foothhold  Step 4: Privilege Escalation Key takeaways  In this write-up, we will walk through the steps to compromi">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://0xdezznutz.github.io/img/404.jpg">
+<meta property="og:image" content="http://nutzh.top/img/404.jpg">
 <meta property="article:published_time" content="2025-01-12T15:40:05.080Z">
-<meta property="article:modified_time" content="2025-01-12T17:44:21.005Z">
+<meta property="article:modified_time" content="2025-01-14T16:29:55.142Z">
 <meta property="article:author" content="NUTZH">
 <meta property="article:tag" content="HACK THE BOX">
 <meta property="article:tag" content="WINDOWS">
 <meta property="article:tag" content="CTF">
 <meta property="article:tag" content="PENETRATION TESTING">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://0xdezznutz.github.io/img/404.jpg">
+<meta name="twitter:image" content="http://nutzh.top/img/404.jpg">
 
-    <meta name="keywords" content="HACKTHEBOX,CTF,SECURITY, NETWORK , PENTEST , WEBexploit , TRYHACKME , CHEATSHEET , LINUX , WINDOWS">
+    <meta name="keywords" content="CTF , HACKTHEBOX , ACTIVE MACHINE">
 
 
 <title >EscapeTwo</title>
@@ -70,8 +70,8 @@
 
 
 <!-- Variable -->
-<script>window.ASYNC_CONFIG = {"hostname":"0xdezznutz.github.io","author":"NUTZH","root":"/","typed_text":["Cybersecurity Student"],"theme_version":"2.2.4","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"favico.png","icon16":"favico.png","icon32":"favico.png","apple_touch_icon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"favico.png","show_text":"(/≧▽≦/)","hide_text":"(●—●)"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"mac","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.xml"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-01-12 18:44:21"};</script>
+<script>window.ASYNC_CONFIG = {"hostname":"nutzh.top","author":"NUTZH","root":"/","typed_text":["Cybersecurity Student"],"theme_version":"2.2.4","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"favico.png","icon16":"favico.png","icon32":"favico.png","apple_touch_icon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"favico.png","show_text":"(/≧▽≦/)","hide_text":"(●—●)"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"mac","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.xml"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-01-14 17:29:55"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.4" id="trm-switch-style">
@@ -537,6 +537,41 @@ Finally, we used the Administrator hash to authenticate via WinRM and retrieve t
         </h5>
     </div>
     
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/Mrrobot/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="https://wallpapercat.com/w/full/e/8/4/22100-3840x2160-desktop-4k-mr-robot-background-image.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/TRY-HACK-ME/">
+                    TRY HACK ME
+                </a>
+            </div>
+            <h5>
+                <a href="/Mrrobot/" class="trm-anima-link">
+                    Mrrobot
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>25/01/14</li>
+                <li>15:50</li>
+                
+                    <li>925</li>
+                
+                
+                    <li>5</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
     
         <div class="col-lg-6">
     <div class="trm-blog-card trm-scroll-animation">
@@ -549,8 +584,8 @@ Finally, we used the Administrator hash to authenticate via WinRM and retrieve t
         
         <div class="trm-card-descr">
             <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/ACTIVE-MACHINE/">
-                    ACTIVE MACHINE
+                <a href=" /categories/ACTIVE-MACHINE-HTB/">
+                    ACTIVE MACHINE(HTB)
                 </a>
             </div>
             <h5>
